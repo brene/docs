@@ -21,6 +21,7 @@ sidebar_categories:
     - docs/security
   Resources:
     - resources/index
+    - resources/relay-connections-edges-nodes
 github_repo: graphcool/docs
 content_root: source
 logo:
