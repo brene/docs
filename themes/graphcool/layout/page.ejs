@@ -27,10 +27,10 @@
         }
       %>
       <% var prev = findAdjacent(-1); if (prev) { %>
-        <span>← <a href="<%- relative_url(page.path, prev.path) %>"><%- prev.title %></a></span>
+        <span>← <a href="<%- relative_url(page.path, prev.path).replace('/index.html', '/') %>"><%- prev.title %></a></span>
       <% } %>
       <% var next = findAdjacent(1); if (next) { %>
-        <span style="float:right"><a href="<%- relative_url(page.path, next.path) %>"><%- next.title %></a> →</span>
+        <span style="float:right"><a href="<%- relative_url(page.path, next.path).replace('/index.html', '/') %>"><%- next.title %></a> →</span>
       <% } %>
     </div>
     <p class="edit-link">

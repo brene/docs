@@ -9,8 +9,6 @@ description:
 author:
 language:
 timezone:
-versions:
-  - '1'
 sidebar_categories:
   Documentation:
     - docs/getting-started
@@ -20,7 +18,7 @@ sidebar_categories:
     - docs/webhooks
     - docs/security
   Resources:
-    - resources/index
+    - resources/examples
     - resources/relay-connections-edges-nodes
 github_repo: graphcool/docs
 content_root: source

@@ -6,9 +6,10 @@
       <% } %>
       <ul class="menu-root">
         <% pages.forEach(function(path) { %>
-          <% p = site.pages.findOne({path: path + '.html'}); %>
+          <% p = site.pages.findOne({path: path + '/index.html'}); %>
+          <% url = relative_url(page.path, p.path).replace('/index.html', '/'); %>
           <li>
-            <a href="<%- relative_url(page.path, p.path) %>" class="sidebar-link<%- page.title === p.title ? ' current' : '' %>">
+            <a href="<%- url %>" class="sidebar-link<%- page.title === p.title ? ' current' : '' %>">
               <%- p.title %>
             </a>
           </li>

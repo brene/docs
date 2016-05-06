@@ -9,17 +9,5 @@
     <a class="header-links" href="https://graph.cool/" target="_blank">Website</a>
     <a href="https://www.github.com/graphcool" target="_blank"><img class="github" src="<%- config.icon.github %>" /></a>
     <a class="header-links" href="https://github.com/graphcool/" target="_blank">Github</a>
-
   </div>
-
-  <% if (config.versions.length > 1) { %>
-    <select class="version-select">
-      <% config.versions.forEach(function (v) { %>
-        <option value="v<%- v %>"><%- v %></option>
-      <% }) %>
-    </select>
-  <% } %>
-  <% if (config.apis.swiftype) { %>
-    <input id="search-input" class="search-box st-default-search-input">
-  <% } %>
 </div>
