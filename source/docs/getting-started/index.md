@@ -20,7 +20,7 @@ The dashboard is available at [dashboard.graph.cool](https://dashboard.graph.coo
 
 The dashboard includes a playground you can use to explore all the queries and mutations available. You simply write your query in the left pane and click the play button to execute it. Results are then returned in the right pane along with potential error messages.
 
-![graph.cool playground](../img/playground.png)
+![graph.cool playground](../../img/playground.png)
 
 The editor supports auto complete and hint as you type. Simply press ctrl+space to get a list of possible queries.
 

@@ -1,6 +1,6 @@
 ---
 title: Relay API
-order: 110
+order: 103
 description: 
 ---
 
@@ -8,7 +8,7 @@ graph.cool supports two different schemas: Simple GraphQL API and Relay API. The
 
 You can read more about the Relay specific elements on the [Relay Website](https://facebook.github.io/relay/) but we will explain all you need to know to get started.
 
-To experiment with the api you can go to the playground in the graph.cool dashboard as described in [getting started](getting-started.html#Overview).
+To experiment with the api you can go to the playground in the graph.cool dashboard as described in [getting started](/docs/getting-started).
 
 ## Queries
 

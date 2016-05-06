@@ -1,6 +1,6 @@
 ---
 title: "Relay: Connections, Edges & Nodes"
-order: 1
+order: 201
 description: What are connections, edges and nodes in Relay and how to use them.
 ---
 

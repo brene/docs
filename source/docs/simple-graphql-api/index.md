@@ -1,12 +1,12 @@
 ---
 title: Simple GraphQL API
-order: 110
+order: 102
 description: 
 ---
 
 graph.cool supports two different schemas: Simple GraphQL API and Relay API. If you are not using relay you should probably use the Simple GraphQL API.
 
-To experiment with the api you can go to the playground in the graph.cool dashboard as described in [getting started](getting-started.html#Overview).
+To experiment with the api you can go to the playground in the graph.cool dashboard as described in [getting started](/docs/getting-started).
 
 > note: currently the playground only supports the relay api.
 
