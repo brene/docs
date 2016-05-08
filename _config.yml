@@ -34,6 +34,7 @@ favicon: /logo/square.png
 
 # API keys
 apis:
+  ga: UA-74131346-3
   segment: M96lXuD90ZxkbQEQG716aySwBLllabOn
 
 # URL
