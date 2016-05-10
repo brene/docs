@@ -1,14 +1,14 @@
 ---
 title: Security
 order: 105
-description: 
+description:
 ---
 
 Graph.cool has a strong security model built in. You can read about setting permissions on individual fields in the [Data Model](data-model.html#Permissions) chapter.
 
 ## Authentication
 
-Users in your graph.cool project are just regular data nodes of the built-in [User model](data-model.html#User-Model). This means that to sign up a new user you simple run the createUser mutation. The User model has one special mutation to support sign-in using email and password:
+Users in your graph.cool project are represented as regular data nodes of the built-in [User model](data-model.html#User-Model). This means that to sign up a new user you simple run the createUser mutation. The User model has one special mutation to support sign-in using email and password:
 
 ```
 mutation {
@@ -18,7 +18,7 @@ mutation {
 
 Passwords are stored in a cryptographically secure way. Running the signinMutation will look up the user with the given email and check that the password matches.
 
-> note: graph.cool will support signin via thirdparty platforms such as facebook and twitter in the near future.
+> note: graph.cool will support sign-in via thirdparty platforms such as facebook and twitter in the near future.
 
 The returned token uniquely identifies the user and must be supplied in the request whenever you query data or perform a mutation on behalf of the user.
 
@@ -43,7 +43,7 @@ If you are using [Lokka](https://github.com/kadirahq/lokka) it could look like t
 ```
 import { Lokka } from 'lokka'
 import { Transport } from 'lokka-transport-http'
-    
+
 const headers = { Authorization: `Bearer ${token}` }
 const transport = new Transport('https://api.graph.cool/simple/v1/__YOUR_PROJECT_ID__', { headers })
 const lokka = new Lokka({ transport })

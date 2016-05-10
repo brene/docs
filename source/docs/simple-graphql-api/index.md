@@ -1,14 +1,12 @@
 ---
 title: Simple GraphQL API
 order: 102
-description: 
+description:
 ---
 
 graph.cool supports two different schemas: Simple GraphQL API and Relay API. If you are not using relay you should probably use the Simple GraphQL API.
 
 To experiment with the api you can go to the playground in the graph.cool dashboard as described in [getting started](/docs/getting-started).
-
-> note: currently the playground only supports the relay api.
 
 ## Queries
 
@@ -65,7 +63,7 @@ If you have many nodes it is best to retrieve only a small set at a time. To get
 ```
 { allUsers(take: 10){ name } }
 ```
- 
+
 And to get the next 10:
 
 ```
@@ -76,12 +74,12 @@ And to get the next 10:
 
 Storing data
 
-Mutations are the way you create and change data in your graph.cool database. The general form look like this:
+Mutations are the way you create and change data in your graph.cool database. The general form looks like this:
 
 ```
 mutation doSomething(input) { query }
 ```
- 
+
 `doSomething` is the name of the mutation you want to run. The following sections describe all the possible mutations.
 
 `input` is the input parameters you want the mutation to use.
@@ -93,8 +91,8 @@ All mutations return a node. For example the create mutation returns the newly c
 To create a new node you use the create mutation like this:
 
 ```
-mutation { 
-  createTodo(task: "Check out react native", complete: False)
+mutation {
+  createTodo(text: "Check out react native", complete: False)
   {
     id
   }
@@ -108,7 +106,7 @@ The createTodo mutation returns the new Todo and you can query all fields includ
 To update a node you use the update mutation like this:
 
 ```
-mutation { 
+mutation {
   updateTodo(id: "todoId", complete: True)
   {
     id
@@ -121,7 +119,7 @@ mutation {
 To delete a node you use the delete mutation like this:
 
 ```
-mutation { 
+mutation {
   deleteTodo(id: "todoId")
   {
     id
@@ -133,13 +131,13 @@ mutation {
 
 For an introduction to connections see the section in Data Model on [connections](data-model.html#Connections)
 
-Recall our example blog application with A User model and a Post model.
+Recall our example blog application with a User model and a Post model.
 
 #### Add to connection
 
 You can add a node to a connection using the addToConnection mutation.
 
-To add a Post to a Users posts connection do the following:
+To add a Post to a User's posts connection do the following:
 
 ```
 mutation {
@@ -189,4 +187,4 @@ mutation {
 }
 ```
 
-This will remove the post from user1 and add it to user2
+This will remove the post from user1 and add it to user2.

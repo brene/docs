@@ -10,7 +10,7 @@ graph.cool allows you to build very sophisticated applications without managing 
 
 To setup a webhook go to your dashboard, click on the settings button in the lower left corner and enter the webhook url.
 
-graph.cool will now make a http POST request to your server whenever a node is created, updated and deleted as whell as when a node is added to or removed from a connection.
+graph.cool will now make a http POST request to your server whenever a node is created, updated and deleted as well as when a node is added to or removed from a connection.
 
 ## Payload Format
 

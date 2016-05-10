@@ -1,7 +1,7 @@
 ---
 title: Relay API
 order: 103
-description: 
+description:
 ---
 
 graph.cool supports two different schemas: Simple GraphQL API and Relay API. The Relay API includes extra information required for relay to work. If you are not using relay you should probably use the Simple GraphQL API. Both apis work with the same data, so you can always switch later or use both at the same time.
@@ -43,7 +43,7 @@ The `allUsers` connection returns a UserConnection type with 3 fields:
 }
 ```
 
-`node` is the User. That's why your query above looked like this: 
+`node` is the User. That's why your query above looked like this:
 
 ```
 { edges{ node{ name }}}
@@ -61,7 +61,7 @@ If you know the id of the User you want you can query for that specific node:
 
 ### Sub nodes
 
-The above query returned a User node and we specified in the query that we were interested in just the name from that node. We can use the same notation to retrieve fields from nodes in a connection from the current node. For example we could use this query to get a list of all of a users friends:
+The above query returned a User node and we specified in the query that we were interested in just the name from that node. We can use the same notation to retrieve fields from nodes in a connection from the current node. For example we could use this query to get a list of all of a user's friends:
 
 ```
 { User(id: "the id"){ name, friends{ edges{ node{ name }}}}}
@@ -94,7 +94,7 @@ If you have many nodes it is best to retrieve only a small set at a time. To get
 ```
 { allUsers(take: 10){ edges{ node{ name }}} }
 ```
- 
+
 And to get the next 10:
 
 ```
@@ -110,10 +110,10 @@ Mutations are the way you create and change data in your graph.cool database. Th
 ```
 mutation doSomething(input: {input}) { query }
 ```
- 
+
 `doSomething` is the name of the mutation you want to run. The following sections describe all the possible mutations.
 
-`input` is the input parameters you want the mutation to use. The Relay specification requires that all mutations has an input field called clientMutationId. If you use relay you don't have to think about it, but if you are writing mutations by hand you can simply supply a dummy value like `clientMutationId: "a"`
+`input` is the input parameters you want the mutation to use. The Relay specification requires that all mutations have an input field called clientMutationId. If you use relay you don't have to think about it, but if you are writing mutations by hand you can simply supply a dummy value like `clientMutationId: "a"`
 
 All mutations return the clientMutationId as well as fields relevant for the type of mutation. For example the create mutation returns the newly created node as well as the edge containing the node. Use `query` to specify the fields you want returned from the mutation result. You always have to specify a query, so if you don't care about the return value you can simply query the clientMutationId like this: `{ clientMutationId }`
 
@@ -122,7 +122,7 @@ All mutations return the clientMutationId as well as fields relevant for the typ
 To create a new node you use the create mutation like this:
 
 ```
-mutation { 
+mutation {
   createTodo(input: {
     task: "Check out react native",
     complete: False,
@@ -141,7 +141,7 @@ The createTodo mutation returns the new Todo in the `todo` field and you can que
 To update a node you use the update mutation like this:
 
 ```
-mutation { 
+mutation {
   updateTodo(input: {
     id: "todoId",
     complete: True,
@@ -158,7 +158,7 @@ mutation {
 To delete a node you use the delete mutation like this:
 
 ```
-mutation { 
+mutation {
   deleteTodo(input: {
     id: "todoId",
     clientMutationId: "a"
@@ -173,13 +173,13 @@ mutation {
 
 For an introduction to connections see the section in Data Model on [connections](data-model.html#Connections)
 
-Recall our example blog application with A User model and a Post model.
+Recall our example blog application with a User model and a Post model.
 
 #### Add to connection
 
 You can add a node to a connection using the addToConnection mutation.
 
-To add a Post to a Users posts connection do the following:
+To add a Post to a User's posts connection do the following:
 
 ```
 mutation {
@@ -245,4 +245,4 @@ mutation {
 }
 ```
 
-This will remove the post from user1 and add it to user2
+This will remove the post from user1 and add it to user2.
