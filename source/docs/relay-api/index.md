@@ -19,7 +19,17 @@ Reading data
 To get all nodes of a specific type you can use one of the connections on the viewer query type. For example to list all nodes of the built-in User type you could do the following:
 
 ```
-{viewer { allUsers{ edges{ node{ name }}}}}
+{
+  viewer {
+    allUsers {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
 ```
 
 The `allUsers` connection returns a UserConnection type with 3 fields:
@@ -46,7 +56,13 @@ The `allUsers` connection returns a UserConnection type with 3 fields:
 `node` is the User. That's why your query above looked like this:
 
 ```
-{ edges{ node{ name }}}
+{
+  edges {
+    node {
+      name
+    }
+  }
+}
 ```
 
 cursor is a string that contains information about the nodes position in the connection. You can use this together with pageInfo when building a paging or infinite scroll experience.
@@ -56,7 +72,11 @@ cursor is a string that contains information about the nodes position in the con
 If you know the id of the User you want you can query for that specific node:
 
 ```
-{ User(id: "the id"){ name } }
+{
+  User(id: "the id") {
+    name
+  }
+}
 ```
 
 ### Sub nodes
@@ -64,7 +84,18 @@ If you know the id of the User you want you can query for that specific node:
 The above query returned a User node and we specified in the query that we were interested in just the name from that node. We can use the same notation to retrieve fields from nodes in a connection from the current node. For example we could use this query to get a list of all of a user's friends:
 
 ```
-{ User(id: "the id"){ name, friends{ edges{ node{ name }}}}}
+{
+  User(id: "the id") {
+    name
+    friends {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
 ```
 
 ### Filter
@@ -72,7 +103,15 @@ The above query returned a User node and we specified in the query that we were 
 In the above examples allUsers and friends are connections containing many nodes. When querying a connection you can specify one or more filters to apply. For example you could do the following to retrieve all users from Denmark:
 
 ```
-{ allUsers(filter: { country: "Denmark" }){ edges{ node{ name }}}}
+{
+  allUsers(filter: {country: "Denmark"}) {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+}
 ```
 
 ### Sort
@@ -80,7 +119,15 @@ In the above examples allUsers and friends are connections containing many nodes
 You can also sort the nodes in a connection by a specific field:
 
 ```
-{ allUsers(orderBy: age_DESC){ edges{ node{ name }}}}
+{
+  allUsers(orderBy: age_DESC) {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+}
 ```
 
 Use field\_DESC to sort in descending order and field\_ASC to sort in ascending order.
@@ -92,13 +139,29 @@ Integer and Float fields are sorted in numeric order and String fields are sorte
 If you have many nodes it is best to retrieve only a small set at a time. To get the first 10 users you can make this query:
 
 ```
-{ allUsers(take: 10){ edges{ node{ name }}} }
+{
+  allUsers(take: 10) {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+}
 ```
 
 And to get the next 10:
 
 ```
-{ allUsers(skip: 10, take: 10){ edges{ node{ name }}} }
+{
+  allUsers(skip: 10, take: 10) {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+}
 ```
 
 ## Mutations
@@ -108,7 +171,14 @@ Storing data
 Mutations are the way you create and change data in your graph.cool database. The general form look like this:
 
 ```
-mutation doSomething(input: {input}) { query }
+mutation {
+  doSomething(input: {
+      input
+  })
+  {
+    query
+  }
+}
 ```
 
 `doSomething` is the name of the mutation you want to run. The following sections describe all the possible mutations.

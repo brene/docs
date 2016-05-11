@@ -17,7 +17,11 @@ Reading data
 To get all nodes of a specific type you can use one of the connections on the root query type. For example to list all nodes of the built-in User type you could do the following:
 
 ```
-{ allUsers{ name } }
+{
+  allUsers {
+    name
+  }
+}
 ```
 
 ### Get specific node
@@ -25,7 +29,11 @@ To get all nodes of a specific type you can use one of the connections on the ro
 If you know the id of the User you want you can query for that specific node:
 
 ```
-{ User(id: "the id"){ name } }
+{
+  User(id: "the id") {
+    name
+  }
+}
 ```
 
 ### Sub nodes
@@ -33,7 +41,14 @@ If you know the id of the User you want you can query for that specific node:
 The above query returned a User node and we specified in the query that we were interested in just the name from that node. We can use the same notation to retrieve fields from nodes in a connection from the current node. For example we could use this query to get a list of all of a users friends:
 
 ```
-{ User(id: "the id"){ name, friends{ name } } }
+{
+  User(id: "the id") {
+    name
+    friends {
+      name
+    }
+  }
+}
 ```
 
 ### Filter
@@ -41,7 +56,11 @@ The above query returned a User node and we specified in the query that we were 
 In the above examples allUsers and friends are connections containing many nodes. When querying a connection you can specify one or more filters to apply. For example you could do the following to retrieve all users from Denmark:
 
 ```
-{ allUsers(filter: { country: "Denmark" }){ name } }
+{
+  allUsers(filter: {country: "Denmark"}) {
+    name
+  }
+}
 ```
 
 ### Sort
@@ -49,7 +68,11 @@ In the above examples allUsers and friends are connections containing many nodes
 You can also sort the nodes in a connection by a specific field:
 
 ```
-{ allUsers(orderBy: age_DESC){ name } }
+{
+  allUsers(orderBy: age_DESC) {
+    name
+  }
+}
 ```
 
 Use field\_DESC to sort in descending order and field\_ASC to sort in ascending order.
@@ -61,13 +84,21 @@ Integer and Float fields are sorted in numeric order and String fields are sorte
 If you have many nodes it is best to retrieve only a small set at a time. To get the first 10 users you can make this query:
 
 ```
-{ allUsers(take: 10){ name } }
+{
+  allUsers(take: 10) {
+    name
+  }
+}
 ```
 
 And to get the next 10:
 
 ```
-{ allUsers(skip: 10, take: 10){ name } }
+{
+  allUsers(skip: 10, take: 10) {
+    name
+  }
+}
 ```
 
 ## Mutations
@@ -92,8 +123,7 @@ To create a new node you use the create mutation like this:
 
 ```
 mutation {
-  createTodo(text: "Check out react native", complete: False)
-  {
+  createTodo(text: "Check out react native", complete: False) {
     id
   }
 }
@@ -107,8 +137,7 @@ To update a node you use the update mutation like this:
 
 ```
 mutation {
-  updateTodo(id: "todoId", complete: True)
-  {
+  updateTodo(id: "todoId", complete: True) {
     id
   }
 }
@@ -120,8 +149,7 @@ To delete a node you use the delete mutation like this:
 
 ```
 mutation {
-  deleteTodo(id: "todoId")
-  {
+  deleteTodo(id: "todoId") {
     id
   }
 }
@@ -141,8 +169,7 @@ To add a Post to a User's posts connection do the following:
 
 ```
 mutation {
-  addTodoTopostsConnectionOnUser(fromId: "userId", toId: "todoId")
-  {
+  addTodoTopostsConnectionOnUser(fromId: "userId", toId: "todoId") {
     id
   }
 }
@@ -154,8 +181,7 @@ To remove a Post from a Users posts connection do the following:
 
 ```
 mutation {
-  removePostFrompostsConnectionOnUser(fromId: "userId", toId: "todoId")
-  {
+  removePostFrompostsConnectionOnUser(fromId: "userId", toId: "todoId") {
     id
   }
 }
@@ -167,8 +193,7 @@ When creating a node you can add it to a connection by specifying the id of the 
 
 ```
 mutation {
-  createPost(title: "Working with mutations", authorId: "user1")
-  {
+  createPost(title: "Working with mutations", authorId: "user1") {
     id
   }
 }
@@ -180,8 +205,7 @@ When updating a node you can change the connection it belongs to. For example to
 
 ```
 mutation {
-  updatePost(id: "post1", authorId: "user2")
-  {
+  updatePost(id: "post1", authorId: "user2") {
     id
   }
 }

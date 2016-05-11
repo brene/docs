@@ -12,13 +12,15 @@ Users in your graph.cool project are represented as regular data nodes of the bu
 
 ```
 mutation {
-  signinUser(email: "email@domain.com", password: "secret"){ token }
+  signinUser(email: "email@domain.com", password: "secret") {
+    token
+  }
 }
 ```
 
 Passwords are stored in a cryptographically secure way. Running the signinMutation will look up the user with the given email and check that the password matches.
 
-> note: graph.cool will support sign-in via thirdparty platforms such as facebook and twitter in the near future.
+> Note: graph.cool will support sign-in via thirdparty platforms such as facebook and twitter in the near future.
 
 The returned token uniquely identifies the user and must be supplied in the request whenever you query data or perform a mutation on behalf of the user.
 

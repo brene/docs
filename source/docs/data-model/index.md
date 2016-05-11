@@ -1,7 +1,7 @@
 ---
 title: Data Model
 order: 101
-description: 
+description:
 ---
 
 ## Models
@@ -30,7 +30,9 @@ To create a new user you can use the createUser mutation like this:
 
 ```
 mutation {
-  createUser(email: "email@domain.com", password: "secret"){ id }
+  createUser(email: "email@domain.com", password: "secret") {
+    id
+  }
 }
 ```
 
@@ -38,7 +40,9 @@ To sign in a user you can use the signinUser mutation like this:
 
 ```
 mutation {
-  signinUser(email: "email@domain.com", password: "secret"){ token }
+  signinUser(email: "email@domain.com", password: "secret") {
+    token
+  }
 }
 ```
 
@@ -47,7 +51,11 @@ The returned token is a string that identifies the user. You should include this
 If you are using the playground in the graph.cool dashboard you can change the token for your requests by selecting a user from the dropdown in the top right corner. This is useful for testing permissions and user specific queries. For example you can get the email of the current user like this:
 
 ```
-{ user { email }}
+{
+  user {
+    email
+  }
+}
 ```
 
 ## Types
@@ -76,15 +84,15 @@ Like a boolean an enum can have one of a predefined set of values. The differenc
 
 #### ID
 
-All nodes in graph.cool are automatically assigned an id field of type ID. You use this value when querying specific nodes or adding nodes to connections.
+All nodes in graph.cool are automatically assigned an `id` field of type ID. You use this value when querying specific nodes or adding nodes to connections.
 
 ## Permissions
 
 > For a high level overview of the graph.cool security system see [Security](security.html)
 
-- synonym: ACL
+<!-- - synonym: ACL -->
 
-In graph.cool permissions are specified on individual fields. This allows you to specify that a users name should be public while her birthday should be private and her contact details only visible by friends.
+In graph.cool permissions are specified on individual fields. This allows you to specify that a user's name should be public while her birthday should be private and her contact details only visible by friends.
 
 ### Actions
 
@@ -108,7 +116,7 @@ todo: what does this even mean? deleting a node vs a field value...
 
 ### Permission Types
 
-To specify who should be allowed to perform a certain action you use a combination of three permission types. Guest, Authenticated and Related. 
+To specify who should be allowed to perform a certain action you use a combination of three permission types. Guest, Authenticated and Related.
 
 #### Guest
 
@@ -118,9 +126,9 @@ Guest means that anyone can perform the action, even if they are not signed in t
 
 Authenticated works almost like the Guest permission except users have to be signed in to your application. If you are creating an app that requires users to sign up you can use this permission type instead of Guest.
 
-In addition you can specify that this action is only available to users with a specific role. This is useful if you have more than one type of user in your application. For example you might want users with the MODERATOR role to be able to delete other users' comments while NORMAL users can only delete their own.
+In addition you can specify that this action is only available to users with a specific role. This is useful if you have more than one type of user in your application. For example you might want users with the `MODERATOR` role to be able to delete other users' comments while `NORMAL` users can only delete their own.
 
-> note: It is currently not possible to add user roles in the dashboard ui. Please contact us in the [graph.cool slack group](https://slack.graph.cool/) so we can help you out!
+> Note: It is currently not possible to add user roles in the dashboard UI. Please contact us in the [graph.cool slack group](https://slack.graph.cool/) so we can help you out!
 
 #### Related
 
@@ -146,10 +154,10 @@ If only the author of a blog post should be able to delete it you would create a
 Post > author
 ```
 
-> note: It is currently not possible to specify a path longer than 1 step. This limitation will be removed in the near future
+> Note: It is currently not possible to specify a path longer than 1 step. This limitation will be removed in the near future
 
 ## Connections
-- synonym: relations
+<!-- - synonym: relations -->
 
 If two things are related you can create a connection between them. If you are used to work with SQL databases you can think of a connection as a foreign key. Even if you are not used to work with databases it is pretty straight forward to use connections in graph.cool.
 
@@ -172,13 +180,22 @@ Now, whenever you create a new post you will have to specify what User should be
 Connections are extremely useful when making [queries](simple-graphql-api.html#Queries). This is how you would get all Posts by a specific user:
 
 ```
-{User(id: "user1"){name, posts{title, text}}}
+{
+  User(id: "user1") {
+    name
+    posts {
+      title
+      text
+    }
+  }
+}
 ```
 
 returns:
 
 ```
-{ User: { 
+{
+  User: {
     name: "Johannes Schickling",
     posts: [
       {title: "Getting Started with GraphQL", text: "..."},
@@ -197,5 +214,16 @@ Post > likedBy > User
 Now you can extend your query to include the names of Users who liked a Post:
 
 ```
-{User(id: "user1"){name, posts{title, text, likedBy{name}}}}
+{
+  User(id: "user1") {
+    name
+    posts {
+      title
+      text
+      likedBy {
+        name
+      }
+    }
+  }
+}
 ```
