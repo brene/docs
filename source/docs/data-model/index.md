@@ -153,7 +153,7 @@ Post > author
 
 If two things are related you can create a connection between them. If you are used to work with SQL databases you can think of a connection as a foreign key. Even if you are not used to work with databases I think you will find it straight forward to use connections in graph.cool.
 
-Let's look at an example. If you are creating a blog you could have two models: User and Post. To keep track of who wrote what post you you could have a author connection from Post to User:
+Let's look at an example. If you are creating a blog you could have two models: User and Post. To keep track of who wrote what post you you could have an author connection from Post to User:
 
 ```
 Post > author > User
