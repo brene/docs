@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 order: 100
-description:
+description: Filling your front-end application with life by requesting and changing data from a backend can be quite cumbersome. Graph.cool makes your life easier with two core components. In the dashboard you find an accessible UI helping you to define your data model or to interactively explore or modify the actual data. A GraphQL API serves as the connection between all your front-end apps and the graph.cool backend. It can be accessed as a Relay API or a Simple GraphQL API.
 ---
 
 Modern tools like react and angular make it really easy to develop high quality UI for mobile and web applications. Graph.cool makes it just as easy to configure the backend api for your application without having to manage a server.

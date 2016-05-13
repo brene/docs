@@ -1,7 +1,7 @@
 ---
 title: Simple GraphQL API
 order: 102
-description:
+description: While Relay is a feature-rich framework that can be used to connect to the graph.cool backend, sometimes you don't need the advanced features in your application. In those cases you can use the Simple GraphQL API which is actually quite similar.
 ---
 
 graph.cool supports two different schemas: Simple GraphQL API and Relay API. If you are not using relay you should probably use the Simple GraphQL API.

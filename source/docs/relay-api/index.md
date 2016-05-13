@@ -1,7 +1,7 @@
 ---
 title: Relay API
 order: 103
-description:
+description: Relay is a feature-rich framework to wire up your React front-end application with the graph.cool backend. That's why we offer a Relay API. If you don't use Relay, check out the Simple GraphQL API! 
 ---
 
 graph.cool supports two different schemas: Simple GraphQL API and Relay API. The Relay API includes extra information required for relay to work. If you are not using relay you should probably use the Simple GraphQL API. Both apis work with the same data, so you can always switch later or use both at the same time.

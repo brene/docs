@@ -1,7 +1,7 @@
 ---
 title: Security
 order: 105
-description:
+description: As users are part of the predefined GraphQL model, sign-in is as simple as sending a GraphQL mutation with the correct authorization header or access_token query parameter. Passwords are stored cryptographically secure and can only be retrieved as a hashed version.
 ---
 
 Graph.cool has a strong security model built in. You can read about setting permissions on individual fields in the [Data Model](data-model.html#Permissions) chapter.

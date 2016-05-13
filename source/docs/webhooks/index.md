@@ -1,7 +1,7 @@
 ---
 title: Webhooks
 order: 104
-description:
+description: graph.cool already covers most use-cases for your front-end application. For specific use-cases where you really have to do complex processing operations triggered by data updates, webhooks are a simple yet powerful tool. Setting up a webhook URL is easily done and will result in a POST request that allows you to react whenever your data changes. 
 ---
 
 graph.cool allows you to build very sophisticated applications without managing your own server. Sometimes you really need to do custom processing in response to data changes and that's when webhooks come in handy.

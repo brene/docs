@@ -1,7 +1,7 @@
 ---
 title: Data Model
 order: 101
-description:
+description: The data model is the core concept of your graph.cool backend. It consists of several submodels which combine several typed fields. You can think of a model as a table in a relational database. To control read and write access to your data, you can define user roles and permissions in the dashboard on a field level, to realize your permission requirements.
 ---
 
 ## Models
