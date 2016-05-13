@@ -16,7 +16,7 @@ Reading data
 
 To get all nodes of a specific type you can use one of the connections on the root query type. For example to list all nodes of the built-in User type you could do the following:
 
-```
+```plain
 {
   allUsers {
     name
@@ -28,7 +28,7 @@ To get all nodes of a specific type you can use one of the connections on the ro
 
 If you know the id of the User you want you can query for that specific node:
 
-```
+```plain
 {
   User(id: "the id") {
     name
@@ -40,7 +40,7 @@ If you know the id of the User you want you can query for that specific node:
 
 The above query returned a User node and we specified in the query that we were interested in just the name from that node. We can use the same notation to retrieve fields from nodes in a connection from the current node. For example we could use this query to get a list of all of a users friends:
 
-```
+```plain
 {
   User(id: "the id") {
     name
@@ -55,7 +55,7 @@ The above query returned a User node and we specified in the query that we were 
 
 In the above examples allUsers and friends are connections containing many nodes. When querying a connection you can specify one or more filters to apply. For example you could do the following to retrieve all users from Denmark:
 
-```
+```plain
 {
   allUsers(filter: {country: "Denmark"}) {
     name
@@ -67,7 +67,7 @@ In the above examples allUsers and friends are connections containing many nodes
 
 You can also sort the nodes in a connection by a specific field:
 
-```
+```plain
 {
   allUsers(orderBy: age_DESC) {
     name
@@ -83,7 +83,7 @@ Integer and Float fields are sorted in numeric order and String fields are sorte
 
 If you have many nodes it is best to retrieve only a small set at a time. To get the first 10 users you can make this query:
 
-```
+```plain
 {
   allUsers(take: 10) {
     name
@@ -93,7 +93,7 @@ If you have many nodes it is best to retrieve only a small set at a time. To get
 
 And to get the next 10:
 
-```
+```plain
 {
   allUsers(skip: 10, take: 10) {
     name
@@ -107,7 +107,7 @@ Storing data
 
 Mutations are the way you create and change data in your graph.cool database. The general form looks like this:
 
-```
+```plain
 mutation doSomething(input) { query }
 ```
 
@@ -121,7 +121,7 @@ All mutations return a node. For example the create mutation returns the newly c
 
 To create a new node you use the create mutation like this:
 
-```
+```plain
 mutation {
   createTodo(text: "Check out react native", complete: False) {
     id
@@ -135,7 +135,7 @@ The createTodo mutation returns the new Todo and you can query all fields includ
 
 To update a node you use the update mutation like this:
 
-```
+```plain
 mutation {
   updateTodo(id: "todoId", complete: True) {
     id
@@ -147,7 +147,7 @@ mutation {
 
 To delete a node you use the delete mutation like this:
 
-```
+```plain
 mutation {
   deleteTodo(id: "todoId") {
     id
@@ -167,7 +167,7 @@ You can add a node to a connection using the addToConnection mutation.
 
 To add a Post to a User's posts connection do the following:
 
-```
+```plain
 mutation {
   addTodoTopostsConnectionOnUser(fromId: "userId", toId: "todoId") {
     id

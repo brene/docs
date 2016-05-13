@@ -142,7 +142,7 @@ When creating a Related permission you specify a path to the user who should hav
 
 If you want to limit access to a users friends the path could look like this:
 
-```
+```plain
 User > friends
 ```
 
@@ -150,7 +150,7 @@ Meaning that only if the current user is in the friends connection on the user b
 
 If only the author of a blog post should be able to delete it you would create a permission with the Delete action and the Related type and specify the following path:
 
-```
+```plain
 Post > author
 ```
 
@@ -163,13 +163,13 @@ If two things are related you can create a connection between them. If you are u
 
 Let's look at an example. If you are creating a blog you could have two models: User and Post. To keep track of who wrote what post you could have a author connection from Post to User:
 
-```
+```plain
 Post > author > User
 ```
 
 Connections always go in both directions, so you would also have a connection from User to Post:
 
-```
+```plain
 User > posts > Post
 ```
 
@@ -179,7 +179,7 @@ Now, whenever you create a new post you will have to specify what User should be
 
 Connections are extremely useful when making [queries](simple-graphql-api.html#Queries). This is how you would get all Posts by a specific user:
 
-```
+```plain
 {
   User(id: "user1") {
     name
@@ -193,7 +193,7 @@ Connections are extremely useful when making [queries](simple-graphql-api.html#Q
 
 returns:
 
-```
+```plain
 {
   User: {
     name: "Johannes Schickling",
@@ -207,13 +207,13 @@ returns:
 
 Imagine you want to make it possible to like a Post. You can accomplish this very easily by creating a likedBy connection on Post:
 
-```
+```plain
 Post > likedBy > User
 ```
 
 Now you can extend your query to include the names of Users who liked a Post:
 
-```
+```plain
 {
   User(id: "user1") {
     name

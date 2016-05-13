@@ -10,9 +10,9 @@ Modern tools like react and angular make it really easy to develop high quality 
 
 Graph.cool has two components:
 
-The **graph.cool dashboard** is a web interface that allows you to easily set up and maintain the data structure for your application.
+The graph.cool **dashboard** is a web interface that allows you to easily set up and maintain the data structure for your application.
 
-The **graph.cool api** is a load-balanced production-ready api that you can use directly in your mobile or web application.
+The graph.cool **api** is a load-balanced production-ready api that you can use directly in your mobile or web application.
 
 ### Dashboard
 

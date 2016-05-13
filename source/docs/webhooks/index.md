@@ -1,7 +1,7 @@
 ---
 title: Webhooks
 order: 104
-description: graph.cool already covers most use-cases for your front-end application. For specific use-cases where you really have to do complex processing operations triggered by data updates, webhooks are a simple yet powerful tool. Setting up a webhook URL is easily done and will result in a POST request that allows you to react whenever your data changes. 
+description: graph.cool already covers most use-cases for your front-end application. For specific use-cases where you really have to do complex processing operations triggered by data updates, webhooks are a simple yet powerful tool. Setting up a webhook URL is easily done and will result in a POST request that allows you to react whenever your data changes.
 ---
 
 graph.cool allows you to build very sophisticated applications without managing your own server. Sometimes you really need to do custom processing in response to data changes and that's when webhooks come in handy.
@@ -16,7 +16,7 @@ graph.cool will now make a http POST request to your server whenever a node is c
 
 The request will include these headers:
 
-```
+```javascript
 {
   'User-Agent': 'graph.cool',
   'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ The request will include these headers:
 
 And the body will look like this:
 
-```
+```plain
 {
   event: 'NODE_CREATED',
   mutation_id: unique id,
@@ -36,7 +36,7 @@ And the body will look like this:
 }
 ```
 
-```
+```plain
 {
   event: 'NODE_UPDATED',
   mutation_id: unique id,
@@ -47,7 +47,7 @@ And the body will look like this:
 }
 ```
 
-```
+```plain
 {
   event: 'NODE_DELETED',
   mutation_id: unique id,
@@ -58,7 +58,7 @@ And the body will look like this:
 }
 ```
 
-```
+```plain
 {
   event: 'NODE_ADDED_TO_CONNECTION',
   mutation_id: unique id,
@@ -72,7 +72,7 @@ And the body will look like this:
 }
 ```
 
-```
+```plain
 {
   event: 'NODE_REMOVED_FROM_CONNECTION',
   mutation_id: unique id,

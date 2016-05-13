@@ -10,7 +10,7 @@ Graph.cool has a strong security model built in. You can read about setting perm
 
 Users in your graph.cool project are represented as regular data nodes of the built-in [User model](data-model.html#User-Model). This means that to sign up a new user you simple run the createUser mutation. The User model has one special mutation to support sign-in using email and password:
 
-```
+```plain
 mutation {
   signinUser(email: "email@domain.com", password: "secret") {
     token
@@ -36,13 +36,13 @@ If you load this url in a browser it will render the same playground available i
 
 If you provide the token in a header it should look like this:
 
-```
+```plain
 Authorization: Bearer {token}
 ```
 
 If you are using [Lokka](https://github.com/kadirahq/lokka) it could look like this:
 
-```
+```javascript
 import { Lokka } from 'lokka'
 import { Transport } from 'lokka-transport-http'
 
@@ -53,7 +53,7 @@ const lokka = new Lokka({ transport })
 
 If you are using [Relay](https://facebook.github.io/relay/) it could look like this:
 
-```
+```javascript
 import { injectNetworkLayer, DefaultNetworkLayer } from 'react-relay'
 
 const headers = { Authorization: `Bearer ${token}` }
