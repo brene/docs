@@ -20,11 +20,11 @@ The email field is used together with the password field to sign in a user of yo
 
 When you set a password for the user it is stored in a cryptographically secure way and it is impossible for you to retrieve the original password. If you query the password for a user you will get the hashed version.
 
-The roles field is used in combination with [permissions](data-model.html#Permissions) and is useful if you have more than one kind of user in your application. For example admin users might be able to do some things that regular users shouldn't.
+The roles field is used in combination with [permissions](#Permissions) and is useful if you have more than one kind of user in your application. For example admin users might be able to do some things that regular users shouldn't.
 
 #### Mutations
 
-> See the [chapter on mutations](simple-graphql-api.html#Mutations) for a general introduction to mutations. This example is using the Simple GraphQL API
+> See the [chapter on mutations](/docs/simple-graphql-api/#Mutations) for a general introduction to mutations. This example is using the Simple GraphQL API
 
 To create a new user you can use the createUser mutation like this:
 
@@ -46,7 +46,7 @@ mutation {
 }
 ```
 
-The returned token is a string that identifies the user. You should include this with all requests your application makes on behalf of the user. See the [Security chapter](security.html) for information about how to do this.
+The returned token is a string that identifies the user. You should include this with all requests your application makes on behalf of the user. See the [Security chapter](/docs/security) for information about how to do this.
 
 If you are using the playground in the graph.cool dashboard you can change the token for your requests by selecting a user from the dropdown in the top right corner. This is useful for testing permissions and user specific queries. For example you can get the email of the current user like this:
 
@@ -88,7 +88,7 @@ All nodes in graph.cool are automatically assigned an `id` field of type ID. You
 
 ## Permissions
 
-> For a high level overview of the graph.cool security system see [Security](security.html)
+> For a high level overview of the graph.cool security system see [Security](/docs/security/)
 
 <!-- - synonym: ACL -->
 
@@ -177,7 +177,7 @@ As you can imagine the `author` connection will always contain the one User who 
 
 Now, whenever you create a new post you will have to specify what User should be the author for that Post.
 
-Connections are extremely useful when making [queries](simple-graphql-api.html#Queries). This is how you would get all Posts by a specific user:
+Connections are extremely useful when making [queries](/docs/simple-graphql-api/#Queries). This is how you would get all Posts by a specific user:
 
 ```plain
 {

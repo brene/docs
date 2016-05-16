@@ -157,7 +157,7 @@ mutation {
 
 ### Connections
 
-For an introduction to connections see the section in Data Model on [connections](data-model.html#Connections)
+For an introduction to connections see the section in Data Model on [connections](/docs/data-model#Connections)
 
 Recall our example blog application with a User model and a Post model.
 
