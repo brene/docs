@@ -80,7 +80,7 @@ A `Boolean` can have the value `true` or `false`. This is useful to keep track o
 
 #### DateTime
 
-The `DateTime` type can be used to store date or time values. A good example might be the date of birth of a person. The used format for `DateTime` values is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) and looks like this: `2015-11-22T13:57:31-03:00`
+The `DateTime` type can be used to store date or time values. A good example might be a person's date of birth. The used format for `DateTime` values is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) and looks like this: `2015-11-22T13:57:31-03:00`
 
 #### Enum
 
