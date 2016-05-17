@@ -64,19 +64,23 @@ In addition to the models you create for your project graph.cool has these built
 
 #### String
 
-A string holds text. This is the type you would use for a username, the content of a blog post or anything else that is best represented as text.
+A `String` holds text. This is the type you would use for a username, the content of a blog post or anything else that is best represented as text.
 
 #### Integer
 
-An integer is a number that cannot have decimals. Use this to store values such as the weight of an ingredient required for a recipe or the minimum age for an event.
+An `Integer` is a number that cannot have decimals. Use this to store values such as the weight of an ingredient required for a recipe or the minimum age for an event.
 
 #### Float
 
-A float is a number that can have decimals. Use this to store values such as the price of an item in a store or the result of complex calculations.
+A `Float` is a number that can have decimals. Use this to store values such as the price of an item in a store or the result of complex calculations.
 
 #### Boolean
 
-A boolean can have the value True or False. This is useful to keep track of settings such as whether the user wants to receive an email newsletter or if a recipe is appropriate for vegetarians.
+A `Boolean` can have the value `true` or `false`. This is useful to keep track of settings such as whether the user wants to receive an email newsletter or if a recipe is appropriate for vegetarians.
+
+#### DateTime
+
+The `DateTime` type can be used to store date or time values. A good example might be the date of birth of a person. The used format for `DateTime` values is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) and looks like this: `2015-11-22T13:57:31-03:00`
 
 #### Enum
 
