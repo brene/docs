@@ -90,6 +90,22 @@ Like a boolean an enum can have one of a predefined set of values. The differenc
 
 All nodes in graph.cool are automatically assigned an `id` field of type ID. You use this value when querying specific nodes or adding nodes to connections.
 
+## Constraints
+
+### Unique
+
+Sometimes you want to make sure that two items can not have the same value. A typical example is the email field on the user model.
+
+If you add the unique constraint to a field on a model that has existing data it will fail if there are multiple items with the same value.
+
+> Please note that String fields can only hold 255 characters when they have a unique constraint.
+
+### Required
+
+If a field is required create mutations will fail if no data is specified for the field.
+
+If you add the required constraint to a field on a model that has existing data it will fail if any of the items doesn't have data for the field.
+
 ## Permissions
 
 > For a high level overview of the graph.cool security system see [Security](/docs/security/)
