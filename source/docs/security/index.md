@@ -4,11 +4,11 @@ order: 105
 description: As users are part of the predefined GraphQL model, sign-in is as simple as sending a GraphQL mutation with the correct authorization header or access_token query parameter. Passwords are stored cryptographically secure and can only be retrieved as a hashed version.
 ---
 
-Graph.cool has a strong security model built in. You can read about setting permissions on individual fields in the [Data Model](data-model.html#Permissions) chapter.
+Graph.cool has a strong security model built in. You can read about setting permissions on individual fields in the [Data Model](/docs/data-model#Permissions) chapter.
 
 ## Authentication
 
-Users in your graph.cool project are represented as regular data nodes of the built-in [User model](data-model.html#User-Model). This means that to sign up a new user you simple run the createUser mutation. The User model has one special mutation to support sign-in using email and password:
+Users in your graph.cool project are represented as regular data nodes of the built-in [User model](/docs/data-model#User-Model). This means that to sign up a new user you simple run the createUser mutation. The User model has one special mutation to support sign-in using email and password:
 
 ```plain
 mutation {
