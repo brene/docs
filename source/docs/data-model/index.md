@@ -98,13 +98,22 @@ Sometimes you want to make sure that two items can not have the same value. A ty
 
 If you add the unique constraint to a field on a model that has existing data it will fail if there are multiple items with the same value.
 
-> Please note that String fields can only hold 255 characters when they have a unique constraint.
+If a field is not required multiple items are allowed to have the empty null value even when the field has a unique constraint.
+
+> Please note that only the first 191 characters in a String field are considered unique. Storing two different strings is not possible if the first 191 characters are the same.
 
 ### Required
 
-If a field is required create mutations will fail if no data is specified for the field.
+If a field is required, create mutations will fail if no data is specified for the field.
 
-If you add the required constraint to a field on a model that has existing data it will fail if any of the items doesn't have data for the field.
+If you add a new required field to a model with existing items, you will have to specify a migrationValue that will be used for all existing items.
+
+Similarly, if you change an existing field from optional to required you have to specify a migrationValue that will be used for all items where that field is empty.
+
+## Default value
+
+You can specify a default value for a field. This is especially useful if you want to make the field optional in create mutations, but ensure that the field always has a meaningful value when you read it. For example you could have an Employee model with a salary field that is required and has the default value 0. Now you can create an Employee without specifying a salary and still be sure that it will never contain null values.
+
 
 ## Permissions
 
