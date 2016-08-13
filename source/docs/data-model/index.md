@@ -88,7 +88,7 @@ Like a boolean an enum can have one of a predefined set of values. The differenc
 
 #### ID
 
-All nodes in graph.cool are automatically assigned an `id` field of type ID. You use this value when querying specific nodes or adding nodes to connections.
+All nodes in graph.cool are automatically assigned an `id` field of type ID. You use this value when querying specific nodes or adding nodes to relations.
 
 ## Constraints
 
@@ -161,52 +161,50 @@ In addition you can specify that this action is only available to users with a s
 
 #### Related
 
-> This permission type is based on [connections](#Connections) in your schema
+> This permission type is based on [relations](#Relations) in your schema
 
 If you are used to thinking about security for traditional apis it can be helpful to forget all of that for a moment. If you have never thought about api security before you are in luck. This will be easy for you :-)
 
-The Related permission type allows you to specify that only users who are connected to the node in a certain way are allowed to perform the action. For example you could specify that only friends of a user can view their location or that only the author of a blog post can delete comments.
+A related permission on a certain node allows you to specify that only users who are related to this node in a certain way are allowed to perform a certain action. For example you could specify that only friends of a user can view their location or that only the author of a blog post can delete comments on that post.
 
-When creating a Related permission you specify a path to the user who should have access from the node you are adding the permission for.
+When creating a rRelated permission you specify a path to the user who should have access from the node you are adding the permission for.
 
-If you want to limit access to a users friends the path could look like this:
+If you want to limit access to a user's friends the path could look like this:
 
 ```plain
 User > friends
 ```
 
-Meaning that only if the current user is in the friends connection on the user being queried will the action be allowed.
+That means that the action will be only allowed if the current user is a friend of the user being queried.
 
-If only the author of a blog post should be able to delete it you would create a permission with the Delete action and the Related type and specify the following path:
+If only the author of a blog post should be able to delete it you would create a permission with the Delete action and the `Related` type and specify the following path:
 
 ```plain
 Post > author
 ```
 
+An important thing to remember about related permissions is that the path has to always end in a field of the User type. This field can be then compared with the signed in user to allow or disallow the action.
+
 > Note: It is currently not possible to specify a path longer than 1 step. This limitation will be removed in the near future
 
-## Connections
-<!-- - synonym: relations -->
+## Relations
 
-If two things are related you can create a connection between them. If you are used to work with SQL databases you can think of a connection as a foreign key. Even if you are not used to work with databases it is pretty straight forward to use connections in graph.cool.
+If two models are related you can create a `Relation` between them. A relation consists of two fields, each one of them belonging to one of the models. If you are used to work with SQL databases you can think of a relation as a foreign key. Even if you are not used to work with databases it is pretty straight forward to use relations in graph.cool.
 
-Let's look at an example. If you are creating a blog you could have two models: User and Post. To keep track of who wrote what post you could have a author connection from Post to User:
+Let's look at an example. If you are creating a blog you could have two models: User and Post. To keep track of who wrote which post you could have an author relation, with the author field on the Post model and the field posts on the User model:
 
 ```plain
 Post > author > User
-```
-
-Connections always go in both directions, so you would also have a connection from User to Post:
-
-```plain
 User > posts > Post
 ```
 
-As you can imagine the `author` connection will always contain the one User who wrote the Post. The `posts` connection on the other hand will contain all the Posts made by the User.
+Relations always go in both directions, so we can consider a path from Post to User (via the author) or from User to Post (via posts).
+
+As you can imagine the `author` field will always contain a User who wrote the Post. The `posts` field on the other hand will contain a list of all the Posts made by a User.
 
 Now, whenever you create a new post you will have to specify what User should be the author for that Post.
 
-Connections are extremely useful when making [queries](/docs/simple-graphql-api/#Queries). This is how you would get all Posts by a specific user:
+Relations are extremely useful when making [queries](/docs/simple-graphql-api/#Queries). This is how you would get all posts by a specific user:
 
 ```plain
 {
@@ -234,10 +232,11 @@ returns:
 }
 ```
 
-Imagine you want to make it possible to like a Post. You can accomplish this very easily by creating a likedBy connection on Post:
+Imagine you want to make it possible to like a Post. You can accomplish this very easily by creating a likedBy relation between Post and User:
 
 ```plain
 Post > likedBy > User
+User > likedPosts > Post
 ```
 
 Now you can extend your query to include the names of Users who liked a Post:
