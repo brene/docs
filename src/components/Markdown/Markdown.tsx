@@ -36,8 +36,8 @@ export default class Markdown extends React.PureComponent<Props, {}> {
 
     if (!window.localStorage.getItem('chat_initiated')) {
       Smooch.sendMessage(`Hey! Can you help me with this part of the ${this.props.documentTitle} docs?`)
-      Smooch.sendMessage(message.substr(0, 200) + '...')
-      window.localStorage.setItem('chat_initiated', 'true')
+        .then(() => Smooch.sendMessage(message.substr(0, 200) + '...'))
+        .then(() => window.localStorage.setItem('chat_initiated', 'true'))
     }
   }
 
