@@ -11,19 +11,20 @@ Note: This API is meant for GraphQL clients like Apollo or lokka. If you're usin
 
 ## Generated Queries
 
-A *query* enables you to declare data requirements in your app and consists of a list of [fields](./platform#field).
-
-Note: All queries are automatically generated. To explore the available queries, you can use the [playground](./platform#playground).
+A *query* enables you to declare data requirements in your app and by supplying multiple [fields](./platform#field).
+All queries are automatically generated. To explore them, use the [playground](./platform#playground) inside your project.
 
 Every query you send has to be wrapped by the *root query type*. It gives you access to all the generated queries for your project and looks like this:
 
 ```graphql
 query {
-  <sub query>
+  <inner query> {
+    <subselection of fields>
+  }
 }
 ```
 
-After you send a query to your [endpoint](./platform#endpoint) you will receive the *query response*, that contains the actual data for all field that were specified in the query.
+After you send a query to your [endpoint](./platform#endpoint) you will receive the *query response*. It contains the actual data for all fields that were specified in the query.
 
 ```graphql
 {
@@ -168,9 +169,7 @@ Pagination allows you to request a certain amount of nodes at the same time. You
 * to seek forwards, use `first`; optionally specify a starting node with `after`.
 * to seek backwards, use `last`; optionally specify a starting node with `before`.
 
-> Consider a blog where only 5 posts are shown at the front page. The second page contains the next 5 posts and so on.
-
-> Query the `first` 5 posts `after` the post with id "my-post-id"
+> Consider a blog where only 5 posts are shown at the front page. The second page contains the next 5 posts and so on. Query the `first` 5 posts `after` the post with id "my-post-id":
 
 ```graphql
 query {
@@ -184,7 +183,7 @@ query {
 }
 ```
 
-> Query the `last` 5 posts
+> Query the `last` 5 posts:
 
 ```graphql
 query {
@@ -270,15 +269,62 @@ Note: Query arguments for an inner field returning multiple nodes work exactly t
 
 ## Generated Mutations
 
-### CRUD Mutations
+With a *mutation* you can modify the data of your project.
+Similar to queries, all mutations are automatically generated. Explore them by using the [playground](./platform#playground) inside your project.
 
-#### Create a node
+Every mutation you send has to be wrapped by the *root mutation type* which looks like this:
 
-#### Update a node
+```graphql
+mutation {
+  <inner mutation> {
+    <subselection of fields>
+  }
+}
+```
 
-#### Delete a node
+Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select the id field as a default.
 
-### Relation Mutations
+### Create a node
+
+Creates a new node for a specific model and assigns a new `id` to that node.
+For this mutation, the following fields have to be specified:
+* all [required](./platform#required) fields without a [default value](./platform#default-value) of the model except for `id`
+* no or some of the non-required fields have to be specified.
+
+The subselection works on the newly created node. You can select all fields, including the `id` field.
+
+To create an edge from the new node to an existing one, simply specify the `id` of the existing node for the according field.
+
+> Create a new post and query its id:
+
+```graphql
+mutation {
+  createPost(slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false) {
+    id
+  }
+}
+```
+
+> Create a new post and connect it to an existing author:
+
+```graphql
+mutation {
+  createPost(slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id") {
+    id
+  }
+}
+```
+
+
+### Update a node
+
+### Delete a node
+
+### Create an edge
+
+### Update an edge
+
+### Delete an edge
 
 * addTo/removeFrom
 * set/unset
