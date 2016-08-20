@@ -291,9 +291,9 @@ For this mutation, the following fields have to be specified:
 * all [required](./platform#required) fields without a [default value](./platform#default-value) of the model except for `id`
 * no or some of the non-required fields have to be specified.
 
-The subselection works on the newly created node. You can select all fields, including the `id` field.
+The subselection contains all fields of the newly created node, including the `id` field.
 
-To create an edge from the new node to an existing one, simply specify the `id` of the existing node for the according field.
+To create connect the new node to an existing one, simply specify the `id` of the existing node for the according field.
 
 > Create a new post and query its id:
 
@@ -315,8 +315,23 @@ mutation {
 }
 ```
 
+Note: You can only specify list fields that are scalar and don't belong to a [relation](./platform#relation).
+
 
 ### Update a node
+
+Updates fields of an existing node. To specify the node to be updated, you have to specify the `id` field.
+Additionally, you only have to specify a value for each field that you want to update.
+
+> Update an existing post and query its id:
+
+```graphql
+mutation {
+  updatePost(id: "my-post-id" text: "This is the start of my biggest adventure!", published: true) {
+    id
+  }
+}
+```
 
 ### Delete a node
 
