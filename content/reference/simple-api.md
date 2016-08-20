@@ -11,10 +11,11 @@ Note: This API is meant for GraphQL clients like Apollo or lokka. If you're usin
 
 ## Queries
 
-A *query* enables you to declare data requirements in your app. If you send a query to your endpoint, the *query response* will contain information about all nodes that were specified in the query.
+A *query* enables you to declare data requirements in your app and consists of a list of [fields](./platform#field).
 
-Every query you send has to be wrapped by the *root query type*. This root query acts as a starting point to more interesting sub queries and looks like this:
+Note: All available queries are automatically generated. To explore the queries available to you, you can use the [playground](./platform#playground)
 
+Every query you send has to be wrapped by the *root query type*. It gives you access to all the generated queries for your project and looks like this:
 
 ```graphql
 query {
@@ -22,15 +23,29 @@ query {
 }
 ```
 
-For every model in your project, there is a query to fetch all nodes of this model and a query to fetch a specific node. Additionally there is a query with information on the currently logged in user.  
+After you send a query to your [endpoint](./platform#endpoint) you will receive the *query response*, that contains the actual data for all field that were specified in the query.
 
-Queries can be parametrized with *query variables* and most queries additionally accept *query arguments* to further control which nodes will be included in the query response.
+```graphql
+{
+  "data": {
+    <response data>
+  }
+}
 
-> As an example, the query returning a specific node has to be supplied with a unique argument that identifies that node, for example its `id`
+```
 
-### All nodes of a model
+### Generated Queries
 
-Accessible via the root query. Queries all nodes of a specific model:
+There are three categories of generated queries:
+* queries to fetch all nodes for a certain model in your project
+* queries to fetch one specific node for a certain each model in your project
+* one query with information on the active user
+
+To further control the response of a query, you can use different *query arguments*. Available arguments depend on the actual query.
+
+#### All nodes for a certain model
+
+Returns all nodes of a specific model:
 
 ```graphql
 query {
@@ -44,9 +59,9 @@ query {
 
 Note: The query uses the plural rules of the English language. For example, if your model is called `Todo`, the query will be called `allTodoes`; if the model is called `Hobby`, the query will be called `Hobbies`
 
-### Specific node of a model
+#### Specific node of a model
 
-Accessible via the root query. Queries a node speficied by a unique query argument:
+Returns a node speficied by a [unique](./platform#unique) query argument:
 
 ```graphql
 query {
@@ -58,7 +73,7 @@ query {
 }
 ```
 
-Note: You can supply any unique field that is marked unique in your project. For example, if you declared the `title` field of the `Post` model to be unique, you could identify a post by specifying its unique title:
+Note: To select the node, you can supply any field that is marked unique in your project. For example, if you already declared the `title` field of the `Post` model to be unique, you could select a post by specifying its unique title:
 
 ```graphql
 query {
@@ -70,11 +85,11 @@ query {
 }
 ```
 
-### Connected nodes
+### Traverse your data graph
 
-To traverse your data graph and collect information on a node that is connected to your currently select node by courtesy of a [relation](./platform#relation), you can add the connected node in your query and specify a sub selection on it.
+You can traverse your data graph inside a query by including the field of a specific [relation](./platform#relation) and adding nested fields inside the now selected node.
 
-> Consider the following project setup: the `Post` and `User` models are related via the `author` and `posts` fields. Then any query for posts will contain the connected `user` node, and any query for users will contain the connected `posts` node. To include information on the author of a specific post, you could send this query
+> Consider the following project setup: the `Post` and `User` models are related via the `author` and `posts` fields. Any query for posts will expose the `user` field, and any query for users will expose the `posts` field. To get information on the author node connected to a specific post, you could send this query:
 
 ```graphql
 query {
@@ -88,8 +103,9 @@ query {
   }
 }
 ```
+### Query Arguments
 
-### Session user
+#### Session user
 
 Accessible via the root query. Queries information on the active user. Read [here](./platform#Security) how the active is determined. All fields of the `User` model are available as subselections:
 
@@ -112,11 +128,13 @@ If no active user could be determined, the query response will look like this:
 }
 ```
 
-### Pagination
+#### Pagination
 
-### Filtering
+#### Filtering
 
-### Sorting
+Qu
+
+#### Sorting
 
 ## Mutations
 
