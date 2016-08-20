@@ -9,11 +9,11 @@ Note: This API is meant for GraphQL clients like Apollo or lokka. If you're usin
 * Mutations based on models + relations
 * Integrations (queries + mutations)
 
-## Queries
+## Generated Queries
 
 A *query* enables you to declare data requirements in your app and consists of a list of [fields](./platform#field).
 
-Note: All available queries are automatically generated. To explore the queries available to you, you can use the [playground](./platform#playground)
+Note: All queries are automatically generated. To explore the available queries, you can use the [playground](./platform#playground).
 
 Every query you send has to be wrapped by the *root query type*. It gives you access to all the generated queries for your project and looks like this:
 
@@ -34,16 +34,52 @@ After you send a query to your [endpoint](./platform#endpoint) you will receive 
 
 ```
 
-### Generated Queries
-
 There are three categories of generated queries:
 * queries to fetch all nodes for a certain model in your project
 * queries to fetch one specific node for a certain each model in your project
-* one query with information on the active user
+* one query with information on the active [user](./platform#user-model)
 
 To further control the response of a query, you can use different *query arguments*. Available arguments depend on the actual query.
 
-#### All nodes for a certain model
+### Specific node of a model
+
+Returns a specific node.
+
+> Query a specific post:
+
+```graphql
+query {
+  Post(id: "my-post-id") {
+    id
+    slug
+    title
+    text
+    published
+  }
+}
+```
+
+Note: To select the node, you can supply any field that is marked [unique](./platform#unique) in your project. For example, if you already declared the `slug` field of the `Post` model to be unique, you could select a post by specifying its slug:
+
+```graphql
+query {
+  Post(slug: "my-biggest-adventure") {
+    id
+    slug
+    title
+    text
+    published
+  }
+}
+```
+
+The unique query argument can be specified in two ways:
+* the [system field](./platform#id-field) `id`, that automatically comes with every model
+* another unique query argument that you added to the model yourself.
+
+Note: You cannot specify two or more unique arguments for one query at the same time.
+
+### All nodes for a certain model
 
 Returns all nodes of a specific model:
 
@@ -51,43 +87,151 @@ Returns all nodes of a specific model:
 query {
   allPosts {
     id
+    slug
     title
     text
+    published
   }
 }
 ```
 
-Note: The query uses the plural rules of the English language. For example, if your model is called `Todo`, the query will be called `allTodoes`; if the model is called `Hobby`, the query will be called `Hobbies`
+> A few examples for query names
+* model name: `Post`, query name: `allPosts`
+* model name: `Todo`, query name: `allTodoes`
+* model name: `Hobby`, query name: `allHobbies`.
 
-#### Specific node of a model
+Note: The query name uses the plural rules of the English language.
 
-Returns a node speficied by a [unique](./platform#unique) query argument:
+The query response can be
+* ordered by specifying an order (ascending or descending) for a specific field
+* filtered by specifying a value for one or multiple
+* grouped into multiple pages by fixing one specific node and either seeking forwards or backwards
+
+#### Ordering
+
+For every scalar field on the model, you can supply `orderBy: <field>_ASC` or `orderBy: <field>_DESC`.
+
+> Order the list of all posts ascending by id:
 
 ```graphql
 query {
-  Post(id: "my-post-id") {
+  allPosts(orderBy: id_ASC) {
     id
+    slug
     title
     text
+    published
   }
 }
 ```
 
-Note: To select the node, you can supply any field that is marked unique in your project. For example, if you already declared the `title` field of the `Post` model to be unique, you could select a post by specifying its unique title:
+> Order the list of all posts descending by title:
 
 ```graphql
 query {
-  Post(title: "My biggest adventure!") {
+  allPosts(orderBy: title_DESC) {
     id
+    slug
     title
     text
+    published
   }
 }
 ```
 
-### Traverse your data graph
+Note: The field you are ordering by does not have to be selected in the actual query.
+Note: If you do not specify an ordering, the response is implicitely ordered ascending by the `id` field
 
-You can traverse your data graph inside a query by including the field of a specific [relation](./platform#relation) and adding nested fields inside the now selected node.
+#### Filtering
+
+You can supply a value for one or many fields to the `filter` argument to filter the query response accordingly.
+
+> Query all posts not yet published:
+
+```graphql
+query {
+  allPosts(filter: {published: false}) {
+    id
+    slug
+    title
+    text
+    published
+  }
+}
+```
+
+Note: If you supply a value for multiple fields to the `filter` argument, only nodes that fulfill all the filter constraints will be shown.
+
+#### Pagination
+
+Pagination allows you to request a certain amount of nodes at the same time. You can seek forwards or backwards through the nodes, with an optional starting point:
+* to seek forwards, use `first`; optionally specify a starting node with `after`.
+* to seek backwards, use `last`; optionally specify a starting node with `before`.
+
+> Consider a blog where only 5 posts are shown at the front page. The second page contains the next 5 posts and so on.
+
+> Query the `first` 5 posts `after` the post with id "my-post-id"
+
+```graphql
+query {
+  allPosts(first: 5 after: "my-post-id"}) {
+    id
+    slug
+    title
+    text
+    published
+  }
+}
+```
+
+> Query the `last` 5 posts
+
+```graphql
+query {
+  allPosts(last: 5}) {
+    id
+    slug
+    title
+    text
+    published
+  }
+}
+```
+
+Note: You cannot combine `first` with `before` or `last` with `after`.
+Note: If you seek forwards or backwards for more nodes than exist, your response will simply contain all nodes that actually do exist in that direction.
+
+### Session user
+
+Queries information on the active user. All fields of the `User` model are available:
+
+```graphql
+query {
+  user {
+    id
+    name
+    email
+  }
+}
+```
+
+If no active user could be determined, the query response will look like this:
+
+```graphql
+{
+  "data": {
+    "user": null
+  }
+}
+```
+
+Read [here](./platform#Security) how the active user is determined.
+
+Note: No query arguments can be included to this query.
+
+## Traverse the data graph
+
+You can traverse the data graph in a query by including the field of a specific [relation](./platform#relation) and adding nested fields inside the now selected node.
 
 > Consider the following project setup: the `Post` and `User` models are related via the `author` and `posts` fields. Any query for posts will expose the `user` field, and any query for users will expose the `posts` field. To get information on the author node connected to a specific post, you could send this query:
 
@@ -103,43 +247,28 @@ query {
   }
 }
 ```
-### Query Arguments
 
-#### Session user
+Note: You cannot add any query arguments to an inner field returning a single node.
 
-Accessible via the root query. Queries information on the active user. Read [here](./platform#Security) how the active is determined. All fields of the `User` model are available as subselections:
-
+> You can also get information on all posts of a certain author like this:
 ```graphql
 query {
-  user {
+  User(id: "my-user-id") {
     id
     name
+    posts {
+      id
+      slug
+      title
+      text
+    }
   }
 }
 ```
 
-If no active user could be determined, the query response will look like this:
+Note: Query arguments for an inner field returning multiple nodes work exactly the same as query arguments for queries [returning multiple nodes](#all-nodes-for-a-certain-model).
 
-```graphql
-{
-  "data": {
-    "user": null
-  }
-}
-```
-
-#### Pagination
-
-#### Filtering
-
-Qu
-
-#### Sorting
-
-## Mutations
-
-... Generated based on the models and relations
-
+## Generated Mutations
 
 ### CRUD Mutations
 
