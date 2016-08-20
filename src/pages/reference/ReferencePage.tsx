@@ -17,13 +17,17 @@ interface Source {
 
 const parser = new Parser()
 const sources: { [key: string]: Source } = {
-  platform: {
+  'platform': {
     title: 'Platform',
     ast: parser.parse(require('../../../content/reference/platform.md')),
   },
-  api: {
-    title: 'API',
-    ast: parser.parse(require('../../../content/reference/api.md')),
+  'simple-api': {
+    title: 'Simple API',
+    ast: parser.parse(require('../../../content/reference/simple-api.md')),
+  },
+  'relay-api': {
+    title: 'Relay API',
+    ast: parser.parse(require('../../../content/reference/relay-api.md')),
   },
 }
 
