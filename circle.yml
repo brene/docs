@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 5.6.0
+    version: 6
 
 dependencies:
   override:
@@ -11,9 +11,7 @@ test:
     - echo 'No tests yet'
 
 deployment:
-  s3:
-    branch: master
+  surge:
+    branch: [master, dev]
     commands:
-      - git config --global user.email "bot@graph.cool"
-      - git config --global user.name "Bot"
       - npm run deploy

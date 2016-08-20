@@ -42,6 +42,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __LAST_UPDATE__: '"' + new Date().toLocaleDateString() + '"',
+      __ENABLE_SEGMENT__: false,
+      __SEGMENT_TOKEN__: '"mxShPAuQCvtbX7K1u5xcmFeqz9X7S7HN"',
       __SMOOCH_TOKEN__: '"505tvtkv5udrd4kc5dbpppa6x"',
     }),
     new HtmlWebpackPlugin({
