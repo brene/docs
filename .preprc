@@ -1,0 +1,10 @@
+{
+  "routes": [
+    "/",
+    "/guides",
+    "/reference",
+    "/reference/platform",
+    "/reference/api",
+    "/examples"
+  ]
+}

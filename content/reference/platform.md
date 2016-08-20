@@ -22,7 +22,7 @@ Every model will be available as a type in your GraphQL. A common notation to qu
 
 > If your application is a blog where people can write posts and comment, you would probably need three models: `User`, `Post` and `Comment`. The IDL representation could look like this:
 
-```
+```graphql
 type User {
 	id: ID
 	posts: [Post]
@@ -44,8 +44,6 @@ type Comment {
 	author: User
 }
 ```
-
-Note: Every project has a predefined [`User` model](#user-model).
 
 ### Field
 
@@ -113,11 +111,13 @@ A *migration value* is a field value which is applied to existing nodes. In case
 
 Migration values are not the same as default values and just exist temporarily in one of the following scenarios:
 
-* You have to provide a migration value when ...
-	* ... you create a new required field.
-	* ... you mark an existing non-required field as required.
-	* ... you change the type of a field.
-* You can provide a migration value but you don't have to when you create a new non-required field.
+You have to provide a migration value when ...
+
+* ... you create a new required field.
+* ... you mark an existing non-required field as required.
+* ... you change the type of a field.
+
+You can provide a migration value but you don't have to when you create a new non-required field.
 
 ### Constraint
 

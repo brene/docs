@@ -40,7 +40,7 @@ export default class App extends React.Component<Props, State> {
     window.removeEventListener('scroll', this._onScroll, false)
   }
 
-  _onScroll(e) {
+  _onScroll() {
     const headerExpanded = window.scrollY < 90
     if (this.state.headerExpanded !== headerExpanded) {
       this.setState({headerExpanded})
@@ -63,7 +63,7 @@ export default class App extends React.Component<Props, State> {
             height: 150,
             top: this.state.headerExpanded ? 'auto' : -90,
             position: this.state.headerExpanded ? 'relative' : 'fixed',
-            WebkitTransform: 'translate3d(0,0,0)',
+            zIndex: 10,
           }}
           className={'bg-accent white pv3 ph4 flex flex-column justify-between w-100'}
         >

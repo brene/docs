@@ -2,12 +2,12 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
   entry: {
     app: './src',
     tachyons: 'tachyons',
   },
   output: {
+    path: './dist',
     filename: '[name].[hash].js',
     publicPath: '/',
   },
@@ -43,10 +43,22 @@ module.exports = {
     new webpack.DefinePlugin({
       __LAST_UPDATE__: '"' + new Date().toLocaleDateString() + '"',
       __SMOOCH_TOKEN__: '"505tvtkv5udrd4kc5dbpppa6x"',
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      },
     }),
     new HtmlWebpackPlugin({
       favicon: 'static/favicon.png',
       template: 'src/index.html',
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        unused: true,
+        dead_code: true,
+        warnings: false,
+      }
     }),
   ],
   svgo: {
@@ -56,5 +68,5 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.ts', '.tsx'],
-  },
+  }
 }

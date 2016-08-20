@@ -4,9 +4,13 @@ import {Router, browserHistory, applyRouterMiddleware} from 'react-router'
 import {useScroll} from 'react-router-scroll'
 import routes from './routes'
 
+import './polyfill'
+
 function useScrollCallback(prevRouterProps, {location}) {
   return location.hash === ''
 }
+
+Smooch.init({appToken: __SMOOCH_TOKEN__})
 
 ReactDOM.render(
   (
