@@ -30,11 +30,13 @@ type User {
 }
 
 type Post {
-	id: ID
-	title: String
-	text: String
-	author: User
-	comments: [Comment]
+  id: ID
+  slug: String
+  title: String
+  text: String
+  published: Boolean
+  author: User
+  comments: [Comment]
 }
 
 type Comment {
