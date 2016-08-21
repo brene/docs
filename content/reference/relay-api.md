@@ -525,10 +525,12 @@ You can traverse the data graph in a query by including the field of a specific 
 
 ```graphql
 query {
-  Post(id: "my-post-id-1") {
-    id
-    author {
-      id, name, email
+  viewer {
+    Post(id: "my-post-id-1") {
+      id
+      author {
+        id, name, email
+      }
     }
   }
 }
@@ -537,10 +539,12 @@ query {
 ```graphql
 {
   "data": {
-    "id": "my-post-id-1",
-    "author": {
-      "id": "my-user-id"
-      "name": "John Doe"
+    "viewer": {
+      "id": "my-post-id-1",
+      "author": {
+        "id": "my-user-id"
+        "name": "John Doe"
+      }
     }
   }
 }
@@ -552,10 +556,12 @@ Note: You cannot add any query arguments to an inner field returning a single no
 
 ```graphql
 query {
-  User(id: "my-user-id") {
-    id, name
-    posts {
-      id, published
+  viewer {
+    User(id: "my-user-id") {
+      id, name
+      posts {
+        id, published
+      }
     }
   }
 }
@@ -564,22 +570,24 @@ query {
 ```graphql
 {
   "data": {
-    "id": "my-user-id",
-    "name": "John Doe"
-    "posts": [
-      {
-        "id": "my-post-id-1",
-        "published": false
-      },
-      {
-        "id": "my-post-id-3",
-        "published": true
-      },
-      {
-        "id": "my-post-id-4",
-        "published": true
-      }
-    ]
+    "viewer": {
+      "id": "my-user-id",
+      "name": "John Doe"
+      "posts": [
+        {
+          "id": "my-post-id-1",
+          "published": false
+        },
+        {
+          "id": "my-post-id-3",
+          "published": true
+        },
+        {
+          "id": "my-post-id-4",
+          "published": true
+        }
+      ]
+    }
   }
 }
 ```
@@ -624,7 +632,7 @@ To create connect the new node to an existing one, simply specify the `id` of th
 
 ```graphql
 mutation {
-  createPost(slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false) {
+  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false}) {
     id
   }
 }
@@ -642,7 +650,7 @@ mutation {
 
 ```graphql
 mutation {
-  createPost(slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id") {
+  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id"}) {
     id
   }
 }
@@ -667,7 +675,7 @@ The query response can contain all fields of the updated node.
 
 ```graphql
 mutation {
-  updatePost(id: "my-post-id", text: "This is the start of my biggest adventure!", published: true) {
+  updatePost(input: {id: "my-post-id", text: "This is the start of my biggest adventure!", published: true}) {
     id
   }
 }
@@ -691,7 +699,7 @@ The query response can contain all fields of the deleted node.
 
 ```graphql
 mutation {
-  deletePost(id: "my-post-id") {
+  deletePost(input: {id: "my-post-id"}) {
     id
   }
 }
@@ -717,7 +725,7 @@ You can create an edge when [creating a node](#create-a-node) on the one-side of
 
 ```graphql
 mutation {
-  createPost(slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id") {
+  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id"}) {
     id
   }
 }
@@ -747,7 +755,7 @@ The query response can contain both nodes of the new edge.
 
 ```graphql
 mutation {
-  setPostCategory(categoryCategoryId: "my-category-id", postPostId: "my-post-id-1") {
+  setPostCategory(input: {categoryCategoryId: "my-category-id", postPostId: "my-post-id-1"}) {
     category {
       name
     }
@@ -783,7 +791,7 @@ The query response can contain both nodes of the former edge.
 
 ```graphql
 mutation {
-  unsetPostCategory(categoryCategoryId: "my-category-id") {
+  unsetPostCategory(input: {categoryCategoryId: "my-category-id"}) {
     category {
       name
     }
@@ -822,7 +830,7 @@ The query response can contain both nodes of the new edge.
 
 ```graphql
 mutation {
-  addToAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id-1") {
+  addToAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id-1"}) {
     author {
       name
     }
@@ -858,7 +866,7 @@ The query response can contain both nodes of the former edge.
 
 ```graphql
 mutation {
-  removeFromAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id") {
+  removeFromAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id"}) {
     author {
       id
     }
