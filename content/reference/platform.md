@@ -8,7 +8,7 @@ You don't have to read the sections in any particular order, so feel free to jum
 
 To customize one of your projects, you can do the following:
 * modify your [Data Schema](#data-schema)
-* enrich the built-in [security system](#security) by modifying [Permissions](#security) for data access
+* enrich the built-in [security system](#authentication) by modifying [Permissions](#security) for data access
 * modify [Actions](#actions)
 
 ### Playground
@@ -210,8 +210,6 @@ An *operation* in the context of permissions is either enabled or disabled and c
 **TODO: On hold due to permission discussion**
 
 ### Permission Level (Guest, Authenticated, Related)
-
-## Security
 
 ### Authentication
 
