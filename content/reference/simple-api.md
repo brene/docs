@@ -74,7 +74,7 @@ query {
 }
 ```
 
-Note: To select the node, you can supply any field that is marked [unique](platform#unique) in your project. For example, if you already declared the `slug` field of the `Post` model to be unique, you could select a post by specifying its slug:
+Note: To select the node, you can supply any [unique](platform#unique) field as an argument to the query. For example, if you already declared the `slug` field of the `Post` model to be unique, you could select a post by specifying its slug:
 
 ```graphql
 query {
@@ -88,9 +88,7 @@ query {
 }
 ```
 
-The unique query argument can be specified in two ways:
-* the [system field](platform#id-field) `id`, that automatically comes with every model
-* another unique query argument that you added to the model yourself.
+You can always use the [system field](platform#id-field) `id` to uniquely identify a node.
 
 Note: You cannot specify two or more unique arguments for one query at the same time.
 
@@ -117,8 +115,8 @@ query {
 
 Note: The query name uses the plural rules of the English language.
 
-The query response can be
-* ordered by specifying an order (ascending or descending) for a specific field
+By supplying different arguments to the query, the response can be
+* ordered ascending or descending by a specific field
 * filtered by specifying a value for one or multiple
 * grouped into multiple pages by fixing one specific node and either seeking forwards or backwards
 
