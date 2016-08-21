@@ -46,7 +46,6 @@ After you send a query to your [endpoint](platform#endpoint) you will receive th
     <response data>
   }
 }
-
 ```
 
 There are three categories of generated queries:
@@ -64,12 +63,18 @@ Returns a specific node.
 
 ```graphql
 query {
-  Post(id: "my-post-id") {
-    id
-    slug
-    title
-    text
-    published
+  Post(id: "my-post-id-1") {
+    id, title, published
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    id: "my-post-id-1",
+    title: "My biggest Adventure",
+    published: false
   }
 }
 ```
@@ -79,11 +84,18 @@ Note: To select the node, you can supply any [unique](platform#unique) field as 
 ```graphql
 query {
   Post(slug: "my-biggest-adventure") {
-    id
-    slug
-    title
-    text
-    published
+    id, slug, title, published
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    id: "my-post-id-1",
+    slug: "my-biggest-adventure",
+    title: "My biggest Adventure",
+    published: false
   }
 }
 ```
@@ -99,11 +111,31 @@ Returns all nodes of a specific model:
 ```graphql
 query {
   allPosts {
-    id
-    slug
-    title
-    text
-    published
+    id, title, published
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        id: "my-post-id-1",
+        title: "My biggest Adventure",
+        published: false
+      },
+      {
+        id: "my-post-id-2",
+        title: "My latest Hobbies",
+        published: true
+      },
+      {
+        id: "my-post-id-3",
+        title: "My great Vacation",
+        published: true
+      }
+    ]
   }
 }
 ```
@@ -129,11 +161,31 @@ For every scalar field on the model, you can supply `orderBy: <field>_ASC` or `o
 ```graphql
 query {
   allPosts(orderBy: id_ASC) {
-    id
-    slug
-    title
-    text
-    published
+    id, title, published
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        id: "my-post-id-1",
+        title: "My biggest Adventure",
+        published: false
+      },
+      {
+        id: "my-post-id-2",
+        title: "My latest Hobbies",
+        published: true
+      },
+      {
+        id: "my-post-id-3",
+        title: "My great Vacation",
+        published: true
+      }
+    ]
   }
 }
 ```
@@ -143,11 +195,31 @@ query {
 ```graphql
 query {
   allPosts(orderBy: title_DESC) {
-    id
-    slug
-    title
-    text
-    published
+    id, title, published
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        id: "my-post-id-2",
+        title: "My latest Hobbies",
+        published: true
+      },
+      {
+        id: "my-post-id-3",
+        title: "My great Vacation",
+        published: true
+      },
+      {
+        id: "my-post-id-1",
+        title: "My biggest Adventure",
+        published: false
+      }
+    ]
   }
 }
 ```
@@ -164,11 +236,21 @@ You can supply a value for one or many fields to the `filter` argument to filter
 ```graphql
 query {
   allPosts(filter: {published: false}) {
-    id
-    slug
-    title
-    text
-    published
+    id, title, published
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        id: "my-post-id-1",
+        title: "My biggest Adventure",
+        published: false
+      }
+    ]
   }
 }
 ```
@@ -177,44 +259,115 @@ Note: If you supply a value for multiple fields to the `filter` argument, only n
 
 #### Pagination
 
-Pagination allows you to request a certain amount of nodes at the same time. You can seek forwards or backwards through the nodes, with an optional starting point:
-* to seek forwards, use `first`; optionally specify a starting node with `after`.
-* to seek backwards, use `last`; optionally specify a starting node with `before`.
+Pagination allows you to request a certain amount of nodes at the same time. You can seek forwards or backwards through the nodes and supply an optional starting node:
+* to seek forwards, use `first`; specify a starting node with `after`.
+* to seek backwards, use `last`; specify a starting node with `before`.
 
-> Consider a blog where only 5 posts are shown at the front page. The second page contains the next 5 posts and so on. Query the `first` 5 posts `after` the post with id "my-post-id":
+> Consider a blog where only 3 posts are shown at the front page. To query the first page:
 
 ```graphql
 query {
-  allPosts(first: 5, after: "my-post-id"}) {
-    id
-    slug
-    title
-    text
-    published
+  allPosts(first: 3) {
+    id, title
   }
 }
 ```
 
-> Query the `last` 5 posts:
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        id: "my-post-id-1",
+        title: "My biggest Adventure",
+        published: false
+      },
+      {
+        id: "my-post-id-2",
+        title: "My latest Hobbies",
+        published: true
+      },
+      {
+        id: "my-post-id-3",
+        title: "My great Vacation",
+        published: true
+      }
+    ]
+  }
+}
+```
+
+> To show the second page, we query the first 3 posts after the last one of the first page, with the id `my-post-id-3`:
 
 ```graphql
 query {
-  allPosts(last: 5}) {
-    id
-    slug
-    title
-    text
-    published
+  allPosts(first: 3, after: "my-post-id-3") {
+    id, title
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        id: "my-post-id-4",
+        title: "My favorite Movies",
+        published: true
+      },
+      {
+        id: "my-post-id-5",
+        title: "My favorite Actors",
+        published: true
+      },
+      {
+        id: "my-post-id-6",
+        title: "My biggest Secret",
+        published: true
+      }
+    ]
+  }
+}
+```
+
+> Query the `last` 3 posts:
+
+```graphql
+query {
+  allPosts(last: 3) {
+    id, title
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        id: "my-post-id-42",
+        title: "My favorite Animals",
+      },
+      {
+        id: "my-post-id-43",
+        title: "My new Work",
+      },
+      {
+        id: "my-post-id-43",
+        title: "My first Post",
+      }
+    ]
   }
 }
 ```
 
 Note: You cannot combine `first` with `before` or `last` with `after`.
-Note: If you seek forwards or backwards for more nodes than exist, your response will simply contain all nodes that actually do exist in that direction.
+Note: If you query more nodes than exist, your response will simply contain all nodes that actually do exist in that direction.
 
 ### Session user
 
-Queries information on [the active user](platform#security). All fields of the `User` model are available:
+Queries information on a [signed in user](platform#authentication). All fields of the `User` model are available:
 
 ```graphql
 query {
@@ -226,7 +379,15 @@ query {
 }
 ```
 
-If no active user could be determined, the query response will look like this:
+```graphql
+{
+  "data": {
+    "user": null
+  }
+}
+```
+
+If no user is signed in, the query response will look like this:
 
 ```graphql
 {
@@ -246,12 +407,22 @@ You can traverse the data graph in a query by including the field of a specific 
 
 ```graphql
 query {
-  Post(id: "my-post-id") {
+  Post(id: "my-post-id-1") {
     id
     author {
-      id
-      name
-      email
+      id, name, email
+    }
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    id: "my-post-id-1",
+    author: {
+      "id": "my-user-id"
+      "name": "John Doe"
     }
   }
 }
@@ -264,14 +435,33 @@ Note: You cannot add any query arguments to an inner field returning a single no
 ```graphql
 query {
   User(id: "my-user-id") {
-    id
-    name
+    id, name
     posts {
-      id
-      slug
-      title
-      text
+      id, published
     }
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "id": "my-user-id",
+    "name": "John Doe"
+    "posts": [
+      {
+        "id": "my-post-id-1",
+        "published": false
+      },
+      {
+        id: "my-post-id-3",
+        "published": true
+      },
+      {
+        id: "my-post-id-4",
+        "published": true
+      }
+    ]
   }
 }
 ```
@@ -287,13 +477,13 @@ All mutations look like this:
 
 ```graphql
 mutation {
-  <mutation> {
+  <mutation>(<list of arguments>) {
     <subselection of fields>
   }
 }
 ```
 
-Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select the id field as a default.
+Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select `id` as a default.
 
 There are two categories of generated mutations:
 * mutations to create, update or delete nodes for a certain [model](platform#model) in your project
@@ -303,11 +493,10 @@ There are two categories of generated mutations:
 
 #### Create a node
 
-Creates a new node for a specific model and assigns a new `id` to that node.
-For this mutation, all [required](platform#required) fields except the `id` field without a [default value](platform#default-value) of the model have to be specified.
-Additionally, the following fields can be specified:
-* any non-required fields of the model
-* any node `id` of a related model. This will also [create an edge](#creating-an-edge-when-creating-a-node) between the new node and any specified node.
+Creates a new node for a specific model that gets assigned a new `id`.
+All [required](platform#required) fields of the model without a [default value](platform#default-value) have to be specified, the other fields are optional arguments.
+
+You can also connect [connect this node](#creating-an-edge-when-creating-a-node) to another node.
 
 The query response can contain all fields of the newly created node, including the `id` field.
 
@@ -332,8 +521,6 @@ mutation {
   }
 }
 ```
-
-Note: You can only specify list fields that are scalar and don't belong to a [relation](platform#relation).
 
 #### Update a node
 
