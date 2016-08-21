@@ -1,6 +1,6 @@
 # Simple API
 
-This API is meant for GraphQL clients like Apollo or lokka. If you're using Relay, check the [Relay API](relay-api) instead.
+This API is meant for GraphQL clients like Apollo or lokka. If you are using Relay, check the [Relay API](relay-api) instead.
 
 The simple API [endpoint](platform#endpoint) for your project looks like this:
 
@@ -12,9 +12,9 @@ The Simple API can be thought of as a simpler subset of the [Relay API](relay-ap
 
 Note: While you can choose to only use one of the Relay API and the Simple API, you can easily use both in the same project at the same time.
 
-The biggest difference is that the simple API does not feature the `viewer` root query. Traversal through your data graph is also handled slight differently, as you're always specifying the relation fields directly instead of using the `node` and `edges` fields as in the Relay API.
+The biggest difference is that the simple API does not feature the `viewer` root query. Traversal through your data graph is also handled slightly differently, as you are always specifying the relation fields directly instead of using the `node` and `edges` fields as in the Relay API.
 
-If you're not using Relay, you probably should use the simple API for now. If you decide to use Relay sometime later, you can easily switch to the Relay API or use both APIs.
+If you are not using Relay, you probably should use the simple API for now. If you decide to use Relay sometime later, you can easily switch to the Relay API or use both APIs.
 
 ## Structure
 
