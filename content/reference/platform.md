@@ -12,15 +12,15 @@ This pages gives an explanation of the concepts which the Graphcool platform is 
 
 ### Model
 
-A *model* defines the structure for a certain type of your data. (If you are familiar with SQL databases you can think of a model as the schema for a table.) A model consists of its name, an optional description and one or multiple [fields](#field).
+A *model* defines the structure for a certain type of your data. (If you are familiar with SQL databases you can think of a model as the schema for a table.) A model has a name, an optional description and one or multiple [fields](#field).
 
 An instantiation of a model is called a *node*. The collection of all nodes is what you would refer to as "your data". The term node makes a lot of sense here since every node is literally a node inside your data graph connected by edges.
 
 > For example a specific user would be a node of the `User` model.
 
-Every model will be available as a type in your GraphQL. A common notation to quickly describe a Model is the [GraphQL IDL](https://github.com/facebook/graphql/pull/90) (interface definition language).
+Every model will be available as a type in your GraphQL schema. A common notation to quickly describe a Model is the [GraphQL IDL](https://github.com/facebook/graphql/pull/90) (interface definition language).
 
-> If your application is a blog where people can write posts and comment, you would probably need three models: `User`, `Post` and `Comment`. The IDL representation could look like this:
+> If your application is a blog where people can write posts and comment, you would probably need those three models: `User`, `Post` and `Comment`. The IDL representation could look like this:
 
 ```graphql
 type User {
@@ -49,7 +49,7 @@ type Comment {
 
 ### Field
 
-*Fields* are the building blocks of a [model](#model) giving a node its shape. Every field is referenced by its name and as has a type which is either a [scalar type](#scalar-type) or a [relation](#relation).
+*Fields* are the building blocks of a [model](#model) giving a node its shape. Every field is referenced by its name and has a type which is either a [scalar type](#scalar-type) or a [relation](#relation).
 
 > A `User` model for example might have a `firstName` and an `email` field.
 
@@ -57,15 +57,23 @@ type Comment {
 
 ##### String
 
-A String holds text. This is the type you would use for a username, the content of a blog post or anything else that is best represented as text. String values are currently limited to 64KB.
+A String holds text. This is the type you would use for a username, the content of a blog post or anything else that is best represented as text.
+
+Note: String values are currently limited to 64KB in size.
 
 ##### Integer
 
 An Integer is a number that cannot have decimals. Use this to store values such as the weight of an ingredient required for a recipe or the minimum age for an event.
 
+Note: Int values range from -2.147.483.648 to 2.147.483.647.
+
 ##### Float
 
-A Float is a number that can have decimals. Use this to store values such as the price of an item in a store or the result of complex calculations. (Note: We store Float values as Double inside our databases.)
+A Float is a number that can have decimals. Use this to store values such as the price of an item in a store or the result of complex calculations.
+
+Note: We store Float values as Double inside our databases.
+
+Note: Float value can have 65 digits in total, of which at most 35 can be in front of the decimal point, and 30 behind the decimal point.
 
 ##### Boolean
 
@@ -79,9 +87,13 @@ The DateTime type can be used to store date or time values. A good example might
 
 Like a Boolean an Enum can have one of a predefined set of values. The difference is that you can define the possible values. For example you could specify how an article should be formatted by creating an Enum with the possible values `COMPACT`, `WIDE` and `COVER`.
 
+Note: Enum values can at most be 191 characters long.
+
 ##### JSON
 
 Sometimes you need to store arbitrary JSON values like unstructured meta information. The JSON type makes sure that it is actually valid JSON and returns the value as a parsed JSON object/array instead of a string.
+
+Note: JSON values are currently limited to 64KB in size.
 
 <!--
 ##### GeoPoint
@@ -93,21 +105,37 @@ Sometimes you need to store arbitrary JSON values like unstructured meta informa
 
 An ID value is a generated unique 25-character string based on [cuid](https://github.com/ericelliott/cuid). Fields with ID values are system fields and just used internally, therefore is not possible to create new fields with the ID type.
 
-#### Required
+#### Type Modifiers
 
-Scalar fields can be marked as required (sometimes also referred to as "non-null"). When [creating a new node]() you need to supply a value for fields which are required and don't have a [default value](#default-value).
+##### List
+
+Scalar fields can be marked with the list field type. A field of a relation that has the many multiplicity will also be marked as a list.
+
+Note: List values are currently limited to 64KB in size, independently of the [scalar type](#scalar-types) of the field.
+
+##### Unique
+
+Setting the *unique* constraint makes sure that two nodes can not have the same value for a certain field. The only exception is the `null` value, meaning that multiple nodes can have the value `null` without violating the constraint.
+
+> A typical example is the `email` field on a `User` model.
+
+Please note that only the first 191 characters in a String field are considered unique. Storing two different strings is not possible if the first 191 characters are the same.
+
+##### Required
+
+Scalar fields can be marked as required (sometimes also referred to as "non-null"). When [creating a new node](./simple-api#create-a-node), you need to supply a value for fields which are required and don't have a [default value](#default-value).
 
 Required fields are usually marked using a `!` after the field type.
 
 > An example for a required field on a `User` model could look like this: `email: String!`.
 
 
-#### Default Value
+##### Default Value
 
 You can set a default value for scalar fields. The value will be taken for new nodes when no value was supplied during creation.
 
 
-#### Migration Value
+##### Migration Value
 
 A *migration value* is a field value which is applied to existing nodes. In case a model doesn't have any nodes yet, you cannot provide a migration value.
 
@@ -120,19 +148,6 @@ You have to provide a migration value when ...
 * ... you change the type of a field.
 
 You can provide a migration value but you don't have to when you create a new non-required field.
-
-### Constraint
-
-*Constraints* allow you to constrain the values of a field by certain characteristics. Values that don't fit the constraints cannot be saved and will be rejected as invalid.
-
-#### Unique
-
-Setting the *unique* constraint makes sure that two nodes can not have the same value for a certain field. The only exception is the `null` value, meaning that multiple nodes can have the value `null` without violating the constraint.
-
-> A typical example is the `email` field on a `User` model.
-
-Please note that only the first 191 characters in a String field are considered unique. Storing two different strings is not possible if the first 191 characters are the same.
-
 
 ### System Artifacts
 
@@ -161,7 +176,7 @@ An *operation* in the context of permissions is either enabled or disabled and c
 * Read: Somebody should be allowed to read the value of a specific field
 * Create: Somebody should be allowed to create a new node and set this value
 * Update: Somebody should be allowed to update the value of an existing node
-* Delete: Somebody should be allowed to
+* Delete: Somebody should be allowed to delete an existing node
 
 **TODO: On hold due to permission discussion**
 
@@ -173,9 +188,9 @@ A *relation* defines how two models are related to each other. Every relation ha
 
 > A simple example for a relation could be a `Pet` relation where a `Human` model is related to a `Animal` model. Starting from a `Human` node you can access the related `Animal` nodes via the `pets` field and using the `owner` field for the other direction.
 
-![](images/structure.svg)
+![a](./images/structure.svg)
 
-![](images/data.svg)
+![b](./images/data.svg)
 
 #### Connection & Edges
 
@@ -185,7 +200,7 @@ A *relation* defines how two models are related to each other. Every relation ha
 
 #### Sessions
 
-#### System Tokens
+#### Authentication Tokens
 
 <!--
 ## File Management
