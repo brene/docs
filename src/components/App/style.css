@@ -39,6 +39,10 @@ a {
     background: var(--color-gray-4);
 }
 
+.accent {
+    color: var(--color-accent);
+}
+
 .gray-1 {
     color: var(--color-gray-1);
 }
