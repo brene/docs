@@ -28,11 +28,11 @@ The Simple API provides several possibilities to fetch, modify or traverse your 
 A *query* enables you to declare data requirements in your app and by supplying multiple [fields](platform#field).
 All queries are automatically generated. To explore them, use the [playground](platform#playground) inside your project.
 
-Every query you send has to be wrapped by the *root query type*. It gives you access to all the generated queries for your project and looks like this:
+All queries look like this:
 
 ```graphql
 query {
-  <inner query> {
+  <query> {
     <subselection of fields>
   }
 }
@@ -285,11 +285,11 @@ Note: Query arguments for an inner field returning multiple nodes work exactly t
 With a *mutation* you can modify the data of your project.
 Similar to queries, all mutations are automatically generated. Explore them by using the [playground](platform#playground) inside your project.
 
-Every mutation you send has to be wrapped by the *root mutation type* which looks like this:
+All mutations look like this:
 
 ```graphql
 mutation {
-  <inner mutation> {
+  <mutation> {
     <subselection of fields>
   }
 }
