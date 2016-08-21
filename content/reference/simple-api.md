@@ -21,11 +21,11 @@ If you are not using Relay, you probably should use the simple API for now. If y
 The Simple API provides several possibilities to fetch, modify or traverse your data. It features
 * generated queries based on models
 * traversal of the data graph
-* generated mutations based on models + relations
+* generated mutations based on models and relations
 
 ## Generated Queries
 
-A *query* enables you to declare data requirements in your app and by supplying multiple [fields](platform#field).
+A *query* enables you to declare data requirements in your app by supplying multiple [fields](platform#field).
 All queries are automatically generated. To explore them, use the [playground](platform#playground) inside your project.
 
 All queries look like this:
@@ -347,15 +347,15 @@ query {
     "allPosts": [
       {
         "id": "my-post-id-42",
-        "title": "My favorite Animals",
+        "title": "My favorite Animals"
       },
       {
         "id": "my-post-id-43",
-        "title": "My new Work",
+        "title": "My new Work"
       },
       {
         "id": "my-post-id-43",
-        "title": "My first Post",
+        "title": "My first Post"
       }
     ]
   }
@@ -372,9 +372,7 @@ Queries information on a [signed in user](platform#authentication). All fields o
 ```graphql
 query {
   user {
-    id
-    name
-    email
+    id, name, email
   }
 }
 ```
@@ -382,7 +380,11 @@ query {
 ```graphql
 {
   "data": {
-    "user": null
+    "user": {
+      "id": "my-user-id",
+      "name": "John Doe",
+      "email": "john@doe.com"
+    }
   }
 }
 ```
