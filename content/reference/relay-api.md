@@ -603,11 +603,13 @@ All mutations look like this:
 
 ```graphql
 mutation {
-  <mutation>(<list of arguments>) {
+  <mutation>(input: {<list of arguments>}) {
     <subselection of fields>
   }
 }
 ```
+
+Every mutation has to include the `clientMutationId` argument. If you are running the mutation in the playground, you can choose some arbitrary value like `clientMutationId: "abc"` for this argument.
 
 Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select `id` as a default.
 
@@ -632,7 +634,7 @@ To create connect the new node to an existing one, simply specify the `id` of th
 
 ```graphql
 mutation {
-  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false}) {
+  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, clientMutationId: "abc"}) {
     id
   }
 }
@@ -650,7 +652,7 @@ mutation {
 
 ```graphql
 mutation {
-  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id"}) {
+  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id", clientMutationId: "abc"}) {
     id
   }
 }
@@ -675,7 +677,7 @@ The query response can contain all fields of the updated node.
 
 ```graphql
 mutation {
-  updatePost(input: {id: "my-post-id", text: "This is the start of my biggest adventure!", published: true}) {
+  updatePost(input: {id: "my-post-id", text: "This is the start of my biggest adventure!", published: true, clientMutationId: "abc"}) {
     id
   }
 }
@@ -725,7 +727,7 @@ You can create an edge when [creating a node](#create-a-node) on the one-side of
 
 ```graphql
 mutation {
-  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id"}) {
+  createPost(input: {slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id", clientMutationId: "abc"}) {
     id
   }
 }
@@ -755,7 +757,7 @@ The query response can contain both nodes of the new edge.
 
 ```graphql
 mutation {
-  setPostCategory(input: {categoryCategoryId: "my-category-id", postPostId: "my-post-id-1"}) {
+  setPostCategory(input: {categoryCategoryId: "my-category-id", postPostId: "my-post-id-1", clientMutationId: "abc"}) {
     category {
       name
     }
@@ -791,7 +793,7 @@ The query response can contain both nodes of the former edge.
 
 ```graphql
 mutation {
-  unsetPostCategory(input: {categoryCategoryId: "my-category-id"}) {
+  unsetPostCategory(input: {categoryCategoryId: "my-category-id", clientMutationId: "abc"}) {
     category {
       name
     }
@@ -830,7 +832,7 @@ The query response can contain both nodes of the new edge.
 
 ```graphql
 mutation {
-  addToAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id-1"}) {
+  addToAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id-1", clientMutationId: "abc"}) {
     author {
       name
     }
@@ -866,7 +868,7 @@ The query response can contain both nodes of the former edge.
 
 ```graphql
 mutation {
-  removeFromAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id"}) {
+  removeFromAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id", clientMutationId: "abc"}) {
     author {
       id
     }
