@@ -1,13 +1,23 @@
 # Simple API
 
-Note: This API is meant for GraphQL clients like Apollo or lokka. If you're using Relay, check the [Relay API](./relay-api) instead.
+This API is meant for GraphQL clients like Apollo or lokka. If you're using Relay, check the [Relay API](./relay-api) instead.
+
+## Differences to the Relay API
+
+The Simple API can be thought of as a simpler subset of the [Relay API](./relay-api).
+
+Note: While you can choose to only use one of the Relay API and the Simple API, you can easily use both in the same project at the same time.
+
+The biggest difference is that the simple API does not feature the `viewer` root query. Traversal through your data graph is also handled slight differently, as you're always specifying the relation fields directly instead of using the `node` and `edges` fields as in the Relay API.
+
+If you're not using Relay, you probably should use the simple API for now. If you decide to use Relay sometime later, you can easily switch to the Relay API or use both APIs.
 
 ## Structure
 
-* Root query type
-* Queries based on models
-* Mutations based on models + relations
-* Integrations (queries + mutations)
+The Simple API provides several possibilities to fetch, modify or traverse your data. It features
+* generated queries based on models
+* traversal of the data graph
+* generated mutations based on models + relations
 
 ## Generated Queries
 
@@ -36,7 +46,7 @@ After you send a query to your [endpoint](./platform#endpoint) you will receive 
 ```
 
 There are three categories of generated queries:
-* queries to fetch all nodes for a certain model in your project
+* queries to fetch all nodes for a certain [model](./platform#model) in your project
 * queries to fetch one specific node for a certain each model in your project
 * one query with information on the active [user](./platform#user-model)
 
@@ -173,7 +183,7 @@ Pagination allows you to request a certain amount of nodes at the same time. You
 
 ```graphql
 query {
-  allPosts(first: 5 after: "my-post-id"}) {
+  allPosts(first: 5, after: "my-post-id"}) {
     id
     slug
     title
@@ -250,6 +260,7 @@ query {
 Note: You cannot add any query arguments to an inner field returning a single node.
 
 > You can also get information on all posts of a certain author like this:
+
 ```graphql
 query {
   User(id: "my-user-id") {
@@ -284,14 +295,21 @@ mutation {
 
 Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select the id field as a default.
 
-### Create a node
+There are two categories of generated mutations:
+* mutations to create, update or delete nodes for a certain [model](./platform#model) in your project
+* mutations to create, update or delete edges for a certain [relation](./platform#relation) in your project
+
+### Modifying nodes
+
+#### Create a node
 
 Creates a new node for a specific model and assigns a new `id` to that node.
-For this mutation, the following fields have to be specified:
-* all [required](./platform#required) fields without a [default value](./platform#default-value) of the model except for `id`
-* no or some of the non-required fields have to be specified.
+For this mutation, all [required](./platform#required) fields except the `id` field without a [default value](./platform#default-value) of the model have to be specified.
+Additionally, the following fields can be specified:
+* any non-required fields of the model
+* any node `id` of a related model. This will also [create an edge](#creating-an-edge-when-creating-a-node) between the new node and any specified node.
 
-The subselection contains all fields of the newly created node, including the `id` field.
+The query response can contain all fields of the newly created node, including the `id` field.
 
 To create connect the new node to an existing one, simply specify the `id` of the existing node for the according field.
 
@@ -317,43 +335,152 @@ mutation {
 
 Note: You can only specify list fields that are scalar and don't belong to a [relation](./platform#relation).
 
+#### Update a node
 
-### Update a node
+Updates fields of an existing node specified by the `id` field.
+The node's fields will be updated according to the additionally provided values.
 
-Updates fields of an existing node. To specify the node to be updated, you have to specify the `id` field.
-Additionally, you only have to specify a value for each field that you want to update.
+The query response can contain all fields of the updated node.
 
-> Update an existing post and query its id:
+> Update the text and published fields for existing post and query its id:
 
 ```graphql
 mutation {
-  updatePost(id: "my-post-id" text: "This is the start of my biggest adventure!", published: true) {
+  updatePost(id: "my-post-id", text: "This is the start of my biggest adventure!", published: true) {
     id
   }
 }
 ```
 
-### Delete a node
+#### Delete a node
 
-### Create an edge
+Deletes a node specified by the `id` field.
 
-### Update an edge
+The query response can contain all fields of the deleted node.
 
-### Delete an edge
+> Delete an existing post and query its id:
 
-* addTo/removeFrom
-* set/unset
-* set via update/create node mutation
+```graphql
+mutation {
+  deletePost(id: "my-post-id") {
+    id
+  }
+}
+```
 
-## Integrations
+### Modifying edges
 
-... TODO
+Note: The names of the arguments and the selectable nodes in the mutation/query depend on the relation name and the relevant models.
 
+#### Creating an edge when creating a node
 
-## Differences to Relay API
+You can create an edge when [creating a node](#create-a-node) on the one-side of a relation.
 
-### Relay has
-* viewer/edges/node/
-* {pageInfo, edges, totalCount}
-* (cursor, first&after/last&before)
-* clientMutationId
+> Create a new post and connect it to an existing author:
+
+```graphql
+mutation {
+  createPost(slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id") {
+    id
+  }
+}
+```
+
+Note: This works for one-to-one and one-to-many relations.
+
+#### Edges for one-to-one relations
+
+A node in a one-to-one relation can at most be connected to one node.
+
+##### Connect two nodes in a one-to-one relation
+
+Creates a new edge between two nodes specified by their `id`. The according models have to be in the same [relation](./platform#relation).
+
+The query response can contain both nodes of the new edge.
+
+> Consider a blog where every post at the most has one assigned category. Adds a new edge to the relation called `PostCategory` and query the category name and the post title:
+
+```graphql
+mutation {
+  setPostCategory(categoryCategoryId: "my-category-id", postPostId: "my-post-id") {
+    category {
+      name
+    }
+    post {
+      title
+    }
+  }
+}
+```
+
+Note: First removes existing connections containing one of the specified nodes, then adds the edge connecting both nodes.
+
+##### Disconnect two nodes in a one-to-one relation
+
+Removes an edge of a node speficied by `id`.
+
+The query response can contain both nodes of the former edge.
+
+> Removes an edge from the relation called `PostCategory` and query the category name and the post title:
+
+```graphql
+mutation {
+  unsetPostCategory(categoryCategoryId: "my-category-id") {
+    category {
+      name
+    }
+    post {
+      title
+    }
+  }
+}
+```
+
+#### Edges for one-to-many and many-to-many relations
+
+A node of the one side of a one-to-many relation can be connected to multiple nodes.
+A node of the many side of a one-to-many relation can at most be connected to one node.
+
+##### Connect two nodes in a one-to-many relation
+
+Creates a new edge between two nodes specified by their `id`. The according models have to be in the same [relation](./platform#relation).
+
+The query response can contain both nodes of the new edge.
+
+> Adds a new edge to the relation called `UserPosts` and query the user name and the post title:
+
+```graphql
+mutation {
+  addToAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id") {
+    author {
+      name
+    }
+    post {
+      title
+    }
+  }
+}
+```
+
+Note: Adds the edge only if this node pair is not connected yet by this relation. Does not remove any edges.
+
+##### Disconnect two nodes in a one-to-many relation
+
+Removes one edge between two nodes specified by `id`
+
+The query response can contain both nodes of the former edge.
+
+> Removes an edge for the relation called `UserPosts` and query the user id and the post slug
+
+```graphql
+mutation {
+  removeFromAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id") {
+    author {
+      id
+    }
+    post {
+      slug
+    }
+  }
+}
+```
