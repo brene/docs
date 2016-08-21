@@ -4,7 +4,8 @@
     "/guides",
     "/reference",
     "/reference/platform",
-    "/reference/api",
+    "/reference/simple-api",
+    "/reference/relay-api",
     "/examples"
   ]
 }

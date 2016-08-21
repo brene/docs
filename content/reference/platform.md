@@ -16,7 +16,7 @@ A *model* defines the structure for a certain type of your data. (If you are fam
 
 An instantiation of a model is called a *node*. The collection of all nodes is what you would refer to as "your data". The term node makes a lot of sense here since every node is literally a node inside your data graph connected by edges.
 
-> For example a specific user would be a node of the `User` model. 
+> For example a specific user would be a node of the `User` model.
 
 Every model will be available as a type in your GraphQL. A common notation to quickly describe a Model is the [GraphQL IDL](https://github.com/facebook/graphql/pull/90) (interface definition language).
 
@@ -24,24 +24,26 @@ Every model will be available as a type in your GraphQL. A common notation to qu
 
 ```graphql
 type User {
-	id: ID
-	posts: [Post]
-	comments: [Comment]
+  id: ID
+  posts: [Post]
+  comments: [Comment]
 }
 
 type Post {
-	id: ID
-	title: String
-	text: String
-	author: User
-	comments: [Comment]
+  id: ID
+  slug: String
+  title: String
+  text: String
+  published: Boolean
+  author: User
+  comments: [Comment]
 }
 
 type Comment {
-	id: ID
-	text: String
-	post: Post
-	author: User
+  id: ID
+  text: String
+  post: Post
+  author: User
 }
 ```
 
@@ -107,7 +109,7 @@ You can set a default value for scalar fields. The value will be taken for new n
 
 #### Migration Value
 
-A *migration value* is a field value which is applied to existing nodes. In case a model doesn't have any nodes yet, you cannot provide a migration value. 
+A *migration value* is a field value which is applied to existing nodes. In case a model doesn't have any nodes yet, you cannot provide a migration value.
 
 Migration values are not the same as default values and just exist temporarily in one of the following scenarios:
 
@@ -159,7 +161,7 @@ An *operation* in the context of permissions is either enabled or disabled and c
 * Read: Somebody should be allowed to read the value of a specific field
 * Create: Somebody should be allowed to create a new node and set this value
 * Update: Somebody should be allowed to update the value of an existing node
-* Delete: Somebody should be allowed to 
+* Delete: Somebody should be allowed to
 
 **TODO: On hold due to permission discussion**
 
