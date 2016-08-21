@@ -4,13 +4,25 @@ The Graphcool platform relies on a few core concepts to form a coherent overall 
 
 You don't have to read the sections in any particular order, so feel free to jump around.
 
-## Dashboard
+## Project
 
-Most features of the platform are exposed to you while using the Dashboard, where you can
-* modify your Data Schema
-* modify Permissions for your data access
-* modify Actions
-* explore the available Queries and Mutations in the Playground
+To customize one of your projects, you can do the following:
+* modify your [Data Schema](#data-schema)
+* enrich the built-in [security system](#authentication) by modifying [Permissions](#security) for data access
+* modify [Actions](#actions)
+
+### Playground
+
+The available queries and mutations for your project are automatically generated from your data schema and can be explored in the Playground.
+
+### Endpoint
+
+To read or modify your data from inside your app, you can make use of the [Simple API](simple-api) or the [Relay API](relay-api).
+You can use them with their respective endpoints that look like this:
+``https://api.graph.cool/simple/v1/__PROJECT_ID__``
+``https://api.graph.cool/relay/v1/__PROJECT_ID__``
+
+Note: You can copy your project id in your Dashboard.
 
 ## Data Schema
 
@@ -55,7 +67,7 @@ type Comment {
 
 *Fields* are the building blocks of a [model](#model) giving a node its shape. Every field is referenced by its name and has a type which is either a [scalar type](#scalar-type) or a [relation](#relation).
 
-> A `User` model for example might have a `firstName` and an `email` field.
+> The `User` model for example might have a `firstName` and an `email` field.
 
 #### Scalar Types
 
@@ -69,7 +81,7 @@ Note: String values are currently limited to 64KB in size.
 
 An Integer is a number that cannot have decimals. Use this to store values such as the weight of an ingredient required for a recipe or the minimum age for an event.
 
-Note: Int values range from -2.147.483.648 to 2.147.483.647.
+Note: Int values range from -2147483648 to 2147483647.
 
 ##### Float
 
@@ -121,17 +133,17 @@ Note: List values are currently limited to 64KB in size, independently of the [s
 
 Setting the *unique* constraint makes sure that two nodes can not have the same value for a certain field. The only exception is the `null` value, meaning that multiple nodes can have the value `null` without violating the constraint.
 
-> A typical example is the `email` field on a `User` model.
+> A typical example is the `email` field on the `User` model.
 
 Please note that only the first 191 characters in a String field are considered unique. Storing two different strings is not possible if the first 191 characters are the same.
 
 ##### Required
 
-Scalar fields can be marked as required (sometimes also referred to as "non-null"). When [creating a new node](./simple-api#create-a-node), you need to supply a value for fields which are required and don't have a [default value](#default-value).
+Scalar fields can be marked as required (sometimes also referred to as "non-null"). When [creating a new node](simple-api#create-a-node), you need to supply a value for fields which are required and don't have a [default value](#default-value).
 
 Required fields are usually marked using a `!` after the field type.
 
-> An example for a required field on a `User` model could look like this: `email: String!`.
+> An example for a required field on the `User` model could look like this: `email: String!`.
 
 
 ##### Default Value
@@ -156,7 +168,7 @@ You can provide a migration value when you create a new non-required field, but 
 
 A *relation* defines how two models are related to each other. Every relation has a name and connects two models via a field in each direction. A relation can either be a one-to-one, a one-to-many or a many-to-many relation.
 
-> A simple example for a relation could be a `Pet` relation where a `Human` model is related to a `Animal` model. Starting from a `Human` node you can access the related `Animal` nodes via the `pets` field and using the `owner` field for the other direction.
+> A simple example for a relation could be the `Pet` relation where the `Human` model is related to the `Animal` model. Starting from a `Human` node you can access the related `Animal` nodes via the `pets` field and using the `owner` field for the other direction.
 
 ![](../images/structure.svg)
 
@@ -199,8 +211,6 @@ An *operation* in the context of permissions is either enabled or disabled and c
 
 ### Permission Level (Guest, Authenticated, Related)
 
-## Security
-
 ### Authentication
 
 #### Sessions
@@ -215,8 +225,6 @@ An *operation* in the context of permissions is either enabled or disabled and c
 
 ## Actions
 
-* Debugging
-
 <!--
 ## Integrations
 
@@ -225,5 +233,3 @@ An *operation* in the context of permissions is either enabled or disabled and c
 -->
 
 ## Playground
-
-* debugging
