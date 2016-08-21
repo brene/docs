@@ -1,6 +1,6 @@
 # Simple API
 
-This API is meant for GraphQL clients like Apollo or lokka. If you're using Relay, check the [Relay API](./relay-api) instead.
+This API is meant for GraphQL clients like Apollo or lokka. If you're using Relay, check the [Relay API](relay-api) instead.
 
 The simple API [endpoint](platform/endpoint) for your project looks like this:
 
@@ -8,7 +8,7 @@ The simple API [endpoint](platform/endpoint) for your project looks like this:
 
 ## Differences to the Relay API
 
-The Simple API can be thought of as a simpler subset of the [Relay API](./relay-api).
+The Simple API can be thought of as a simpler subset of the [Relay API](relay-api).
 
 Note: While you can choose to only use one of the Relay API and the Simple API, you can easily use both in the same project at the same time.
 
@@ -25,8 +25,8 @@ The Simple API provides several possibilities to fetch, modify or traverse your 
 
 ## Generated Queries
 
-A *query* enables you to declare data requirements in your app and by supplying multiple [fields](./platform#field).
-All queries are automatically generated. To explore them, use the [playground](./platform#playground) inside your project.
+A *query* enables you to declare data requirements in your app and by supplying multiple [fields](platform#field).
+All queries are automatically generated. To explore them, use the [playground](platform#playground) inside your project.
 
 Every query you send has to be wrapped by the *root query type*. It gives you access to all the generated queries for your project and looks like this:
 
@@ -38,7 +38,7 @@ query {
 }
 ```
 
-After you send a query to your [endpoint](./platform#endpoint) you will receive the *query response*. It contains the actual data for all fields that were specified in the query.
+After you send a query to your [endpoint](platform#endpoint) you will receive the *query response*. It contains the actual data for all fields that were specified in the query.
 
 ```graphql
 {
@@ -50,9 +50,9 @@ After you send a query to your [endpoint](./platform#endpoint) you will receive 
 ```
 
 There are three categories of generated queries:
-* queries to fetch all nodes for a certain [model](./platform#model) in your project
+* queries to fetch all nodes for a certain [model](platform#model) in your project
 * queries to fetch one specific node for a certain each model in your project
-* one query with information on the active [user](./platform#user-model)
+* one query with information on the active [user](platform#user-model)
 
 To further control the response of a query, you can use different *query arguments*. Available arguments depend on the actual query.
 
@@ -74,7 +74,7 @@ query {
 }
 ```
 
-Note: To select the node, you can supply any field that is marked [unique](./platform#unique) in your project. For example, if you already declared the `slug` field of the `Post` model to be unique, you could select a post by specifying its slug:
+Note: To select the node, you can supply any field that is marked [unique](platform#unique) in your project. For example, if you already declared the `slug` field of the `Post` model to be unique, you could select a post by specifying its slug:
 
 ```graphql
 query {
@@ -89,7 +89,7 @@ query {
 ```
 
 The unique query argument can be specified in two ways:
-* the [system field](./platform#id-field) `id`, that automatically comes with every model
+* the [system field](platform#id-field) `id`, that automatically comes with every model
 * another unique query argument that you added to the model yourself.
 
 Note: You cannot specify two or more unique arguments for one query at the same time.
@@ -216,7 +216,7 @@ Note: If you seek forwards or backwards for more nodes than exist, your response
 
 ### Session user
 
-Queries information on the active user. All fields of the `User` model are available:
+Queries information on [the active user](platform#security). All fields of the `User` model are available:
 
 ```graphql
 query {
@@ -238,13 +238,11 @@ If no active user could be determined, the query response will look like this:
 }
 ```
 
-Read [here](./platform#Security) how the active user is determined.
-
 Note: No query arguments can be included to this query.
 
 ## Traverse the data graph
 
-You can traverse the data graph in a query by including the field of a specific [relation](./platform#relation) and adding nested fields inside the now selected node.
+You can traverse the data graph in a query by including the field of a specific [relation](platform#relation) and adding nested fields inside the now selected node.
 
 > Consider the following project setup: the `Post` and `User` models are related via the `author` and `posts` fields. Any query for posts will expose the `user` field, and any query for users will expose the `posts` field. To get information on the author node connected to a specific post, you could send this query:
 
@@ -285,7 +283,7 @@ Note: Query arguments for an inner field returning multiple nodes work exactly t
 ## Generated Mutations
 
 With a *mutation* you can modify the data of your project.
-Similar to queries, all mutations are automatically generated. Explore them by using the [playground](./platform#playground) inside your project.
+Similar to queries, all mutations are automatically generated. Explore them by using the [playground](platform#playground) inside your project.
 
 Every mutation you send has to be wrapped by the *root mutation type* which looks like this:
 
@@ -300,15 +298,15 @@ mutation {
 Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select the id field as a default.
 
 There are two categories of generated mutations:
-* mutations to create, update or delete nodes for a certain [model](./platform#model) in your project
-* mutations to create, update or delete edges for a certain [relation](./platform#relation) in your project
+* mutations to create, update or delete nodes for a certain [model](platform#model) in your project
+* mutations to create, update or delete edges for a certain [relation](platform#relation) in your project
 
 ### Modifying nodes
 
 #### Create a node
 
 Creates a new node for a specific model and assigns a new `id` to that node.
-For this mutation, all [required](./platform#required) fields except the `id` field without a [default value](./platform#default-value) of the model have to be specified.
+For this mutation, all [required](platform#required) fields except the `id` field without a [default value](platform#default-value) of the model have to be specified.
 Additionally, the following fields can be specified:
 * any non-required fields of the model
 * any node `id` of a related model. This will also [create an edge](#creating-an-edge-when-creating-a-node) between the new node and any specified node.
@@ -337,7 +335,7 @@ mutation {
 }
 ```
 
-Note: You can only specify list fields that are scalar and don't belong to a [relation](./platform#relation).
+Note: You can only specify list fields that are scalar and don't belong to a [relation](platform#relation).
 
 #### Update a node
 
@@ -398,7 +396,7 @@ A node in a one-to-one relation can at most be connected to one node.
 
 ##### Connect two nodes in a one-to-one relation
 
-Creates a new edge between two nodes specified by their `id`. The according models have to be in the same [relation](./platform#relation).
+Creates a new edge between two nodes specified by their `id`. The according models have to be in the same [relation](platform#relation).
 
 The query response can contain both nodes of the new edge.
 
@@ -447,7 +445,7 @@ A node of the many side of a one-to-many relation can at most be connected to on
 
 ##### Connect two nodes in a one-to-many relation
 
-Creates a new edge between two nodes specified by their `id`. The according models have to be in the same [relation](./platform#relation).
+Creates a new edge between two nodes specified by their `id`. The according models have to be in the same [relation](platform#relation).
 
 The query response can contain both nodes of the new edge.
 

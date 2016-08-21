@@ -6,9 +6,9 @@ You don't have to read the sections in any particular order, so feel free to jum
 
 ## Project
 
-To customize your own project, the following features are available:
+To customize one of your projects, you can do the following:
 * modify your [Data Schema](#data-schema)
-* modify [Permissions](#security) for your data access
+* enrich the built-in [security system](#security) by modifying [Permissions](#security) for data access
 * modify [Actions](#actions)
 
 ### Playground
@@ -17,13 +17,10 @@ The available queries and mutations for your project are automatically generated
 
 ### Endpoint
 
-Each project has two individual API endpoints, that look like this:
-
+To read or modify your data from inside your app, you can make use of the [Simple API](simple-api) or the [Relay API](relay-api).
+You can use them with their respective endpoints that look like this:
 ``https://api.graph.cool/simple/v1/__PROJECT_ID__``
 ``https://api.graph.cool/relay/v1/__PROJECT_ID__``
-
-Read more about the exposed API here: [Simple API](simple-api) or [Relay API](relay-api).
-
 
 ## Data Schema
 
@@ -140,7 +137,7 @@ Please note that only the first 191 characters in a String field are considered 
 
 ##### Required
 
-Scalar fields can be marked as required (sometimes also referred to as "non-null"). When [creating a new node](./simple-api#create-a-node), you need to supply a value for fields which are required and don't have a [default value](#default-value).
+Scalar fields can be marked as required (sometimes also referred to as "non-null"). When [creating a new node](simple-api#create-a-node), you need to supply a value for fields which are required and don't have a [default value](#default-value).
 
 Required fields are usually marked using a `!` after the field type.
 
@@ -228,8 +225,6 @@ An *operation* in the context of permissions is either enabled or disabled and c
 
 ## Actions
 
-* Debugging
-
 <!--
 ## Integrations
 
@@ -238,5 +233,3 @@ An *operation* in the context of permissions is either enabled or disabled and c
 -->
 
 ## Playground
-
-* debugging
