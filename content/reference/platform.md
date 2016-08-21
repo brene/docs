@@ -1,14 +1,18 @@
 # Platform
 
-This pages gives an explanation of the concepts which the Graphcool platform is based on. You don't have to read the sections in any particular order, so feel free to jump around.
+The Graphcool platform relies on a few core concepts to form a coherent overall system.
 
-## Architecture
+You don't have to read the sections in any particular order, so feel free to jump around.
 
-* Endpoints
-* Database
-* Auth
+## Dashboard
 
-## Data Model
+Most features of the platform are exposed to you while using the Dashboard, where you can
+* modify your Data Schema
+* modify Permissions for your data access
+* modify Actions
+* explore the available Queries and Mutations in the Playground
+
+## Data Schema
 
 ### Model
 
@@ -141,13 +145,26 @@ A *migration value* is a field value which is applied to existing nodes. In case
 
 Migration values are not the same as default values and just exist temporarily in one of the following scenarios:
 
-You have to provide a migration value when ...
+You have to provide a migration value when you
+* create a new required field.
+* mark an existing non-required field as required.
+* change the type of a field.
 
-* ... you create a new required field.
-* ... you mark an existing non-required field as required.
-* ... you change the type of a field.
+You can provide a migration value when you create a new non-required field, but you don't have to.
 
-You can provide a migration value but you don't have to when you create a new non-required field.
+### Relation
+
+A *relation* defines how two models are related to each other. Every relation has a name and connects two models via a field in each direction. A relation can either be a one-to-one, a one-to-many or a many-to-many relation.
+
+> A simple example for a relation could be a `Pet` relation where a `Human` model is related to a `Animal` model. Starting from a `Human` node you can access the related `Animal` nodes via the `pets` field and using the `owner` field for the other direction.
+
+![](images/structure.svg)
+
+![](images/data.svg)
+
+Note: A model can be related to itself.
+
+#### Connection & Edges
 
 ### System Artifacts
 
@@ -163,13 +180,13 @@ Additional to the predefined [`id` field](#id-field), the `User` model also has 
 
 Every model has a system field with the name `id` of type [ID](#id). The `id` value of every node (regardless the model) is globally unique and unambiguously identifies a node ([as required by Relay](https://facebook.github.io/relay/docs/graphql-object-identification.html)).
 
-### Permission
+## Permission
 
 Each field has a set of associated *permissions* which are used to restrict read and write access to the underlying field values of nodes. This lets you define a powerful system of rules combining the idea of role based access control ([RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)) with node level access control.
 
 Each permission is described by a selection of one or many possible operations and a permission level.
 
-#### Operation
+### Operation
 
 An *operation* in the context of permissions is either enabled or disabled and can be one of the following:
 
@@ -180,19 +197,7 @@ An *operation* in the context of permissions is either enabled or disabled and c
 
 **TODO: On hold due to permission discussion**
 
-#### Permission Level (Guest, Authenticated, Related)
-
-### Relation
-
-A *relation* defines how two models are related to each other. Every relation has a name and connects two models via a field in each direction. A relation can either be a one-to-one, a one-to-many or a many-to-many relation.
-
-> A simple example for a relation could be a `Pet` relation where a `Human` model is related to a `Animal` model. Starting from a `Human` node you can access the related `Animal` nodes via the `pets` field and using the `owner` field for the other direction.
-
-![a](./images/structure.svg)
-
-![b](./images/data.svg)
-
-#### Connection & Edges
+### Permission Level (Guest, Authenticated, Related)
 
 ## Security
 
@@ -218,3 +223,7 @@ A *relation* defines how two models are related to each other. Every relation ha
 *Coming soon...*
 
 -->
+
+## Playground
+
+* debugging
