@@ -98,7 +98,15 @@ export default class Markdown extends React.PureComponent<Props, {}> {
       },
     }
 
-    const renderer = new ReactRenderer({renderers})
+    const transformImageUri = (uri: string) => {
+      const filename = uri.replace(/.*\//, '').replace('.svg', '')
+      return require(`../../../content/images/${filename}.svg`)
+    }
+
+    const renderer = new ReactRenderer({
+      renderers,
+      transformImageUri,
+    })
 
     return (
       <div className={`relative ${styles.content}`}>

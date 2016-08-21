@@ -32,6 +32,9 @@ module.exports = {
       test: /\.json/,
       loader: 'json',
     }, {
+      test: /content\/.*\.svg$/,
+      loader: 'file',
+    }, {
       test: /icons\/.*\.svg$/,
       loader: 'raw!svgo?{"plugins":[{"removeStyleElement":true}]}',
     }, {

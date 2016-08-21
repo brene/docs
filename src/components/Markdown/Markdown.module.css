@@ -69,6 +69,10 @@
     white-space: pre;
 }
 
+.content img {
+    max-width: 100%;
+}
+
 .content li {
     margin: 0.2rem 0;
 }

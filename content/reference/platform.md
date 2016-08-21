@@ -158,9 +158,9 @@ A *relation* defines how two models are related to each other. Every relation ha
 
 > A simple example for a relation could be a `Pet` relation where a `Human` model is related to a `Animal` model. Starting from a `Human` node you can access the related `Animal` nodes via the `pets` field and using the `owner` field for the other direction.
 
-![](images/structure.svg)
+![](../images/structure.svg)
 
-![](images/data.svg)
+![](../images/data.svg)
 
 Note: A model can be related to itself.
 
