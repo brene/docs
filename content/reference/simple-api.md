@@ -72,9 +72,9 @@ query {
 ```graphql
 {
   "data": {
-    id: "my-post-id-1",
-    title: "My biggest Adventure",
-    published: false
+    "id": "my-post-id-1",
+    "title": "My biggest Adventure",
+    "published": false
   }
 }
 ```
@@ -92,10 +92,10 @@ query {
 ```graphql
 {
   "data": {
-    id: "my-post-id-1",
-    slug: "my-biggest-adventure",
-    title: "My biggest Adventure",
-    published: false
+    "id": "my-post-id-1",
+    "slug": "my-biggest-adventure",
+    "title": "My biggest Adventure",
+    "published": false
   }
 }
 ```
@@ -121,19 +121,19 @@ query {
   "data": {
     "allPosts": [
       {
-        id: "my-post-id-1",
-        title: "My biggest Adventure",
-        published: false
+        "id": "my-post-id-1",
+        "title": "My biggest Adventure",
+        "published": false
       },
       {
-        id: "my-post-id-2",
-        title: "My latest Hobbies",
-        published: true
+        "id": "my-post-id-2",
+        "title": "My latest Hobbies",
+        "published": true
       },
       {
-        id: "my-post-id-3",
-        title: "My great Vacation",
-        published: true
+        "id": "my-post-id-3",
+        "title": "My great Vacation",
+        "published": true
       }
     ]
   }
@@ -171,19 +171,19 @@ query {
   "data": {
     "allPosts": [
       {
-        id: "my-post-id-1",
-        title: "My biggest Adventure",
-        published: false
+        "id": "my-post-id-1",
+        "title": "My biggest Adventure",
+        "published": false
       },
       {
-        id: "my-post-id-2",
-        title: "My latest Hobbies",
-        published: true
+        "id": "my-post-id-2",
+        "title": "My latest Hobbies",
+        "published": true
       },
       {
-        id: "my-post-id-3",
-        title: "My great Vacation",
-        published: true
+        "id": "my-post-id-3",
+        "title": "My great Vacation",
+        "published": true
       }
     ]
   }
@@ -205,19 +205,19 @@ query {
   "data": {
     "allPosts": [
       {
-        id: "my-post-id-2",
-        title: "My latest Hobbies",
-        published: true
+        "id": "my-post-id-2",
+        "title": "My latest Hobbies",
+        "published": true
       },
       {
-        id: "my-post-id-3",
-        title: "My great Vacation",
-        published: true
+        "id": "my-post-id-3",
+        "title": "My great Vacation",
+        "published": true
       },
       {
-        id: "my-post-id-1",
-        title: "My biggest Adventure",
-        published: false
+        "id": "my-post-id-1",
+        "title": "My biggest Adventure",
+        "published": false
       }
     ]
   }
@@ -246,9 +246,9 @@ query {
   "data": {
     "allPosts": [
       {
-        id: "my-post-id-1",
-        title: "My biggest Adventure",
-        published: false
+        "id": "my-post-id-1",
+        "title": "My biggest Adventure",
+        "published": false
       }
     ]
   }
@@ -278,19 +278,19 @@ query {
   "data": {
     "allPosts": [
       {
-        id: "my-post-id-1",
-        title: "My biggest Adventure",
-        published: false
+        "id": "my-post-id-1",
+        "title": "My biggest Adventure",
+        "published": false
       },
       {
-        id: "my-post-id-2",
-        title: "My latest Hobbies",
-        published: true
+        "id": "my-post-id-2",
+        "title": "My latest Hobbies",
+        "published": true
       },
       {
-        id: "my-post-id-3",
-        title: "My great Vacation",
-        published: true
+        "id": "my-post-id-3",
+        "title": "My great Vacation",
+        "published": true
       }
     ]
   }
@@ -312,19 +312,19 @@ query {
   "data": {
     "allPosts": [
       {
-        id: "my-post-id-4",
-        title: "My favorite Movies",
-        published: true
+        "id": "my-post-id-4",
+        "title": "My favorite Movies",
+        "published": true
       },
       {
-        id: "my-post-id-5",
-        title: "My favorite Actors",
-        published: true
+        "id": "my-post-id-5",
+        "title": "My favorite Actors",
+        "published": true
       },
       {
-        id: "my-post-id-6",
-        title: "My biggest Secret",
-        published: true
+        "id": "my-post-id-6",
+        "title": "My biggest Secret",
+        "published": true
       }
     ]
   }
@@ -346,16 +346,16 @@ query {
   "data": {
     "allPosts": [
       {
-        id: "my-post-id-42",
-        title: "My favorite Animals",
+        "id": "my-post-id-42",
+        "title": "My favorite Animals",
       },
       {
-        id: "my-post-id-43",
-        title: "My new Work",
+        "id": "my-post-id-43",
+        "title": "My new Work",
       },
       {
-        id: "my-post-id-43",
-        title: "My first Post",
+        "id": "my-post-id-43",
+        "title": "My first Post",
       }
     ]
   }
@@ -419,8 +419,8 @@ query {
 ```graphql
 {
   "data": {
-    id: "my-post-id-1",
-    author: {
+    "id": "my-post-id-1",
+    "author": {
       "id": "my-user-id"
       "name": "John Doe"
     }
@@ -454,11 +454,11 @@ query {
         "published": false
       },
       {
-        id: "my-post-id-3",
+        "id": "my-post-id-3",
         "published": true
       },
       {
-        id: "my-post-id-4",
+        "id": "my-post-id-4",
         "published": true
       }
     ]
@@ -512,12 +512,28 @@ mutation {
 }
 ```
 
+```graphql
+{
+  "data": {
+    "id": "my-post-id"
+  }
+}
+```
+
 > Create a new post and connect it to an existing author:
 
 ```graphql
 mutation {
   createPost(slug: "my-biggest-adventure", title: "My biggest adventure", text: "...", published: false, userId: "my-user-id") {
     id
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "id": "my-post-id"
   }
 }
 ```
@@ -539,6 +555,14 @@ mutation {
 }
 ```
 
+```graphql
+{
+  "data": {
+    "id": "my-post-id"
+  }
+}
+```
+
 #### Delete a node
 
 Deletes a node specified by the `id` field.
@@ -551,6 +575,14 @@ The query response can contain all fields of the deleted node.
 mutation {
   deletePost(id: "my-post-id") {
     id
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "id": "my-post-id"
   }
 }
 ```
@@ -573,6 +605,14 @@ mutation {
 }
 ```
 
+```graphql
+{
+  "data": {
+    "id": "my-post-id"
+  }
+}
+```
+
 Note: This works for one-to-one and one-to-many relations.
 
 #### Edges for one-to-one relations
@@ -589,12 +629,25 @@ The query response can contain both nodes of the new edge.
 
 ```graphql
 mutation {
-  setPostCategory(categoryCategoryId: "my-category-id", postPostId: "my-post-id") {
+  setPostCategory(categoryCategoryId: "my-category-id", postPostId: "my-post-id-1") {
     category {
       name
     }
     post {
       title
+    }
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "category": {
+      "name": "General"
+    }
+    "post": {
+      "title": "My biggest Adventure"
     }
   }
 }
@@ -623,6 +676,19 @@ mutation {
 }
 ```
 
+```graphql
+{
+  "data": {
+    "category": {
+      "name": "General"
+    }
+    "post": {
+      "title": "My biggest Adventure"
+    }
+  }
+}
+```
+
 #### Edges for one-to-many and many-to-many relations
 
 A node of the one side of a one-to-many relation can be connected to multiple nodes.
@@ -638,12 +704,25 @@ The query response can contain both nodes of the new edge.
 
 ```graphql
 mutation {
-  addToAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id") {
+  addToAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id-1") {
     author {
       name
     }
     post {
       title
+    }
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "author": {
+      "name": "John Doe"
+    }
+    "post": {
+      "title": "My biggest Adventure"
     }
   }
 }
@@ -667,6 +746,19 @@ mutation {
     }
     post {
       slug
+    }
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "author": {
+      "name": "John Doe"
+    }
+    "post": {
+      "slug": "my-biggest-adventure"
     }
   }
 }
