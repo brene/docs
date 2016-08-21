@@ -51,7 +51,7 @@ After you send a query to your [endpoint](platform#endpoint) you will receive th
 
 There are three categories of generated queries:
 * queries to fetch all nodes for a certain [model](platform#model) in your project
-* queries to fetch one specific node for a certain each model in your project
+* queries to fetch one specific node for a certain model in your project
 * one query with information on the active [user](platform#user-model)
 
 To further control the response of a query, you can use different *query arguments*. Available arguments depend on the actual query.
