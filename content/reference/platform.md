@@ -4,13 +4,26 @@ The Graphcool platform relies on a few core concepts to form a coherent overall 
 
 You don't have to read the sections in any particular order, so feel free to jump around.
 
-## Dashboard
+## Project
 
-Most features of the platform are exposed to you while using the Dashboard, where you can
-* modify your Data Schema
-* modify Permissions for your data access
-* modify Actions
-* explore the available Queries and Mutations in the Playground
+To customize your own project, the following features are available:
+* modify your [Data Schema](#data-schema)
+* modify [Permissions](#security) for your data access
+* modify [Actions](#actions)
+
+### Playground
+
+The available queries and mutations for your project are automatically generated from your data schema and can be explored in the Playground.
+
+### Endpoint
+
+Each project has two individual API endpoints, that look like this:
+
+``https://api.graph.cool/simple/v1/__PROJECT_ID__``
+``https://api.graph.cool/relay/v1/__PROJECT_ID__``
+
+Read more about the exposed API here: [Simple API](simple-api) or [Relay API](relay-api).
+
 
 ## Data Schema
 
