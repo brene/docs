@@ -2,6 +2,10 @@
 
 This API is meant for GraphQL clients like Apollo or lokka. If you're using Relay, check the [Relay API](./relay-api) instead.
 
+The simple API [endpoint](platform/endpoint) for your project looks like this:
+
+`https://api.graph.cool/simple/v1/__PROJECT_ID__`
+
 ## Differences to the Relay API
 
 The Simple API can be thought of as a simpler subset of the [Relay API](./relay-api).
