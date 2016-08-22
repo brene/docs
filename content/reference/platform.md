@@ -7,8 +7,8 @@ You don't have to read the sections in any particular order, so feel free to jum
 ## Project
 
 To customize one of your projects, you can:
-* modify your [Data Schema](#data-schema)
-* modify [Permissions](#permisson) for data access to enrich the built-in [authentication system](#authentication)
+* modify your [Data Schema](#data-schema) by creating or modifying [models](#model) or [relations](#relation)
+* modify [Permissions](#permission) for data access to enrich the built-in [authentication system](#authentication)
 * modify [Actions](#actions) to handle your business logic
 
 ### Playground
@@ -19,17 +19,18 @@ See [this tutorial](https://egghead.io/lessons/javascript-using-graphql-s-graphi
 
 ### Endpoint
 
-To read or modify your data from inside your app, you can make use of the [Simple API](simple-api) or the [Relay API](relay-api).
-You can use them with their respective endpoints that look like this:
+To read or modify data from inside your app, you can make use of the [Simple API](simple-api) or the [Relay API](relay-api).
+You can send requests to their respective endpoints that look like this:
+
 ``https://api.graph.cool/simple/v1/__PROJECT_ID__``
 ``https://api.graph.cool/relay/v1/__PROJECT_ID__``
 
-Note: You can copy your endpoint in the Dashboard after you logged in.
+Note: You can copy your endpoint from within the Dashboard after you logged in.
 
 ## Data Schema
 
 Every project has its own *data schema*.
-You can organize your data in [models](#models) and define [relations](#relation) between them.
+You can organize your data in [models](#model) and define [relations](#relation) between them.
 
 ![](../images/structure.svg)
 
@@ -75,7 +76,7 @@ type Comment {
 
 ### Field
 
-*Fields* are the building blocks of a [model](#model) giving a node its shape. Every field is referenced by its name and has a type which is either a [scalar type](#scalar-type) or a [relation](#relation).
+*Fields* are the building blocks of a [model](#model) giving a node its shape. Every field is referenced by its name and has a type which is either a [scalar type](#scalar-types) or a [relation](#relation).
 
 > The `Post` model from above has a `title` and an `text` field.
 
@@ -149,7 +150,7 @@ Please note that only the first 191 characters in a String field are considered 
 
 ##### Required
 
-Scalar fields can be marked as required (sometimes also referred to as "non-null"). When [creating a new node](simple-api#create-a-node), you need to supply a value for fields which are required and don't have a [default value](#default-value).
+Scalar fields can be marked as required (sometimes also referred to as "non-null"). When creating a new node, you need to supply a value for fields which are required and don't have a [default value](#default-value).
 
 Required fields are usually marked using a `!` after the field type.
 
@@ -204,9 +205,9 @@ Additional to the predefined [`id` field](#id-field), the `User` model also has 
 
 Every model has a system field with the name `id` of type [ID](#id). The `id` value of every node (regardless the model) is globally unique and unambiguously identifies a node ([as required by Relay](https://facebook.github.io/relay/docs/graphql-object-identification.html)).
 
-## Authentication Tokens
+## Authentication
 
-*Authentication tokens* are used to grant role-based access to the data of your project.
+Request authentication is handled using *authentication tokens* which grant role-based access to the data of your project.
 
 They have to be supplied using the `Authorization` header of your http requests:
 
@@ -214,7 +215,7 @@ They have to be supplied using the `Authorization` header of your http requests:
 Authorization: Bearer <authentication token>
 ```
 
-If a request to your endpoint contains a valid authentication token, that request is granted certain [permissions](#permission) that you can configure.
+If a request to your endpoint contains a valid authentication token, it is granted certain [permissions](#permission) that you can configure on a field granularity.
 
 ### Temporary Authentication Token
 
@@ -261,7 +262,7 @@ A permission level describes the required minimum access level the user needs to
 There are two permission levels:
 
 * A user that is not authenticated is granted `GUEST` level access.
-* A user that is [authenticated](#temporary-authentication-tokens) is granted `GUEST` and `AUTHENTICATED` level access.
+* An [authenticated session user](#session-user) is granted `GUEST` and `AUTHENTICATED` level access.
 
 <!--
 ## File Management

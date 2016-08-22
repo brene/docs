@@ -50,9 +50,9 @@ After you send a query to your [endpoint](platform#endpoint) you will receive th
 ```
 
 There are three categories of generated queries:
-* queries to fetch all nodes for a certain [model](platform#model) in your project
-* queries to fetch one specific node for a certain model in your project
-* one query with information on the active [user](platform#user-model)
+* queries to fetch [one specific node](#specific-node-of-a-model) for a certain [model](platform#model) in your project
+* queries to fetch [all nodes](#all-nodes-for-a-certain-model) for a certain [model](platform#model) in your project
+* one query with information on the [session user](#session-user)
 
 To further control the response of a query, you can use different *query arguments*. Available arguments depend on the actual query.
 
@@ -477,7 +477,7 @@ Note: If you query more nodes than exist, your response will simply contain all 
 
 ### Session user
 
-Queries information on a [signed in user](platform#authentication). All fields of the `User` model are available:
+Queries information on the [session user](platform#session-user). All fields of the `User` model are available:
 
 ```graphql
 query {
@@ -614,13 +614,13 @@ Every mutation has to include the `clientMutationId` argument. If you are runnin
 Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select `id` as a default.
 
 There are three categories of generated mutations:
-* a [sign-in](#sign-in) mutation to authenticate further queries or mutations as a certain user
-* mutations to create, update or delete nodes for a certain [model](platform#model) in your project
-* mutations to create, update or delete edges for a certain [relation](platform#relation) in your project
+* a [sign-in](#sign-in) mutation to authenticate further queries or mutations as a [session user](platform#session-user)
+* mutations to [create, update or delete nodes](#modifying-nodes) for a certain [model](platform#model) in your project
+* mutations to [create, update or delete edges](#modifying-edges) for a certain [relation](platform#relation) in your project
 
 ### Sign In
 
-Signs in a user by supplying an email and password. Returns a [temporary authentication token](platform#temporary-authentication-tokens) that can be used to authenticate further queries or mutations as the signed in user.
+Signs in a user by supplying an email and password. Returns a [temporary authentication token](platform#temporary-authentication-token) that can be used to authenticate further queries or mutations as the signed in user.
 
 > Sign in as user `john@doe.com` with password `mysecret` and query the newly created authentication token:
 
