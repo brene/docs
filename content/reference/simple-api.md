@@ -780,3 +780,105 @@ mutation {
   }
 }
 ```
+
+## Errors
+
+When an error occurs for one of your queries or mutations, the `data` field of the query response will usually be `null` and the error `code`, the error `message` and further information will be included in the `errors` field of the response JSON.
+
+### Internal Server Errors
+
+*Internal server errors* indicate that something went wrong with our service - whoops! Find us at our [Slack channel](http://slack.graph.cool) so we can help you out and fix the issue.
+
+You do not have to investigate this issue further in your client application.
+
+> This is how an internal server error might look like:
+
+```graphql
+{
+  "data": {
+    <some query>: null
+  },
+  "errors": [{
+    "message": "Whoops. Looks like an internal server error. Please contact us in Slack (https://slack.graph.cool) and send us your Request ID: <some-request-id>",
+    "requestId": <some-request-id>,
+    "path": [<some path>],
+    "locations": [{
+      "line": 1,
+      "column": 59
+    }]
+  }]
+}
+```
+
+### Client API Errors
+
+A client API error usually indicates that something is not correct with the query or mutation you are trying to send.
+
+Try to investigate your application for possible errors related to the error message.
+
+Maybe the syntax of a request is not correct, or you forgot to include a required query argument?
+Another possibility is that the supplied data could not be resolved on our servers.
+
+Here is an overview about all possible client errors:
+
+**Code 1033: id not found**
+
+**Code 1035: invalid id provided**
+
+**Code 1036: unknown argument provided**
+
+**Code 1037: id argument expected but not foundation**
+
+**Code 1038: mutation would violate a unique key constraint**
+
+**Code 1045: referencing a node that does not exist**
+
+**Code 2001: something unexpected happened in a webhook**
+
+**Code 2003: invalid model supplied**
+
+**Code 2004: invalid field supplied**
+
+**Code 2005: node not found**
+
+**Code 2006: supplied both first and last**
+
+**Code 2007: node not in the relation.**
+
+**Code 2008: not allowed to access project**
+
+**Code 2009: edge already exists**
+
+> For example, when you try to update a post but specify a non-existing id:
+
+```graphql
+mutation {
+  updatePost(id: "wrong-id" title: "My new Title") {
+    id
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "updatePost": null
+  },
+  "errors": [
+    {
+      "locations": [
+        {
+          "line": 11,
+          "column": 3
+        }
+      ],
+      "path": [
+        "updatePost"
+      ],
+      "code": 1033,
+      "message": "'Post' has no item with id 'wrong-id'",
+      "requestId": "cis68piccx0112azxzoh200ad"
+    }
+  ]
+}
+```
