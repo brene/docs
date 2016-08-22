@@ -22,7 +22,10 @@ export default class OverviewPage extends React.Component<Props, State> {
         }}
       >
         <div className='w-100 pv4 lh-copy'>
-          Welcome to the official Graphcool Documentation!
+          <p>Welcome to the official Graphcool documentation page!</p>
+          <p>The platform walkthrough gives a good overview of Graphcool.</p>
+          <p>To quick start your project, check one of the <a href="examples">examples</a>.</p>
+          <p>The reference offers detailed information on the Graphcool <a href="reference/platform">platform</a> and the <a href="reference/simple-api">Simple API</a> and the <a href="reference/relay-api">Relay API</a>.</p>
         </div>
         <div className='w-60 pr4'>
           <h2 className='mv4'>Getting Started</h2>
