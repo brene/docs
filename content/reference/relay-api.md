@@ -773,10 +773,10 @@ The query response can contain both nodes of the new edge.
 ```graphql
 mutation {
   setPostCategory(input: {categoryCategoryId: "my-category-id", postPostId: "my-post-id-1", clientMutationId: "abc"}) {
-    category {
+    categoryCategory {
       name
     }
-    post {
+    postPost {
       title
     }
   }
@@ -786,10 +786,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "category": {
+    "categoryCategory": {
       "name": "General"
     }
-    "post": {
+    "postPost": {
       "title": "My biggest Adventure"
     }
   }
@@ -809,10 +809,10 @@ The query response can contain both nodes of the former edge.
 ```graphql
 mutation {
   unsetPostCategory(input: {categoryCategoryId: "my-category-id", clientMutationId: "abc"}) {
-    category {
+    categoryCategory {
       name
     }
-    post {
+    postPost {
       title
     }
   }
@@ -822,10 +822,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "category": {
+    "categoryCategory": {
       "name": "General"
     }
-    "post": {
+    "postPost": {
       "title": "My biggest Adventure"
     }
   }
@@ -848,10 +848,10 @@ The query response can contain both nodes of the new edge.
 ```graphql
 mutation {
   addToAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id-1", clientMutationId: "abc"}) {
-    author {
+    authorUser {
       name
     }
-    post {
+    postPost {
       title
     }
   }
@@ -861,10 +861,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "author": {
+    "authorUser": {
       "name": "John Doe"
     }
-    "post": {
+    "postPost": {
       "title": "My biggest Adventure"
     }
   }
@@ -884,10 +884,10 @@ The query response can contain both nodes of the former edge.
 ```graphql
 mutation {
   removeFromAuthorPosts(input: {authorUserid: "my-user-id" postPostId: "my-post-id", clientMutationId: "abc"}) {
-    author {
+    authorUser {
       id
     }
-    post {
+    postPost {
       slug
     }
   }
@@ -897,10 +897,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "author": {
+    "authorUser": {
       "name": "John Doe"
     }
-    "post": {
+    "postPost": {
       "slug": "my-biggest-adventure"
     }
   }

@@ -647,10 +647,10 @@ The query response can contain both nodes of the new edge.
 ```graphql
 mutation {
   setPostCategory(categoryCategoryId: "my-category-id", postPostId: "my-post-id-1") {
-    category {
+    categoryCategory {
       name
     }
-    post {
+    postPost {
       title
     }
   }
@@ -660,10 +660,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "category": {
+    "categoryCategory": {
       "name": "General"
     }
-    "post": {
+    "postPost": {
       "title": "My biggest Adventure"
     }
   }
@@ -683,10 +683,10 @@ The query response can contain both nodes of the former edge.
 ```graphql
 mutation {
   unsetPostCategory(categoryCategoryId: "my-category-id") {
-    category {
+    categoryCategory {
       name
     }
-    post {
+    postPost {
       title
     }
   }
@@ -696,10 +696,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "category": {
+    "categoryCategory": {
       "name": "General"
     }
-    "post": {
+    "postPost": {
       "title": "My biggest Adventure"
     }
   }
@@ -722,10 +722,10 @@ The query response can contain both nodes of the new edge.
 ```graphql
 mutation {
   addToAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id-1") {
-    author {
+    authorUser {
       name
     }
-    post {
+    postPost {
       title
     }
   }
@@ -735,10 +735,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "author": {
+    "authorUser": {
       "name": "John Doe"
     }
-    "post": {
+    "postPost": {
       "title": "My biggest Adventure"
     }
   }
@@ -758,10 +758,10 @@ The query response can contain both nodes of the former edge.
 ```graphql
 mutation {
   removeFromAuthorPosts(authorUserid: "my-user-id" postPostId: "my-post-id") {
-    author {
+    authorUser {
       id
     }
-    post {
+    postPost {
       slug
     }
   }
@@ -771,10 +771,10 @@ mutation {
 ```graphql
 {
   "data": {
-    "author": {
+    "authorUser": {
       "name": "John Doe"
     }
-    "post": {
+    "postPost": {
       "slug": "my-biggest-adventure"
     }
   }
