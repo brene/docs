@@ -204,11 +204,36 @@ Additional to the predefined [`id` field](#id-field), the `User` model also has 
 
 Every model has a system field with the name `id` of type [ID](#id). The `id` value of every node (regardless the model) is globally unique and unambiguously identifies a node ([as required by Relay](https://facebook.github.io/relay/docs/graphql-object-identification.html)).
 
-## Authentication
+## Authentication Tokens
 
-### Sessions
+*Authentication tokens* are used to grant role-based access to the data of your project.
 
-### Authentication Tokens
+They have to be supplied using the `Authorization` header of your http requests:
+
+```plain
+Authorization: Bearer <authentication token>
+```
+
+If a request to your endpoint contains a valid authentication token, that request is granted certain [permissions](#permission) that you can configure.
+
+### Temporary Authentication Token
+
+The User model has the special `signInUser` mutation to support sign-in using email and password. If it is successful it will grant a *temporary authentication token* that uniquely identifies the user signing in and has an expiration duration of 30 days.
+
+Read more about the `signInUser` mutation in the [Simple API](simple-api#sign-in) and in the [Relay API](relay-api#sign-in).
+
+#### Session User
+
+A user is considered to be signed in during a request, if the user is identified by the authentication token supplied to the request.
+
+If an invalid authentication token is supplied to a request, the request is granted
+
+
+### Permanent Authentication Token
+
+You can create *permanent authentication tokens* in the Dashboard for server-side services that need access to your data.
+
+Note: Be **very** careful where you use the permanent authentication tokens. Everyone with a permanent authentication token can do serious harm to your data, so you should never include them anywhere client-side, like on a website or a mobile app.
 
 ## Permission
 
@@ -236,7 +261,7 @@ A permission level describes the required minimum access level the user needs to
 There are two permission levels:
 
 * A user that is not authenticated is granted `GUEST` level access.
-* A user that is [authenticated](#authentication) is granted `GUEST` and `AUTHENTICATED` level access.
+* A user that is [authenticated](#temporary-authentication-tokens) is granted `GUEST` and `AUTHENTICATED` level access.
 
 <!--
 ## File Management
