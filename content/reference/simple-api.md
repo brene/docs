@@ -263,6 +263,8 @@ Pagination allows you to request a certain amount of nodes at the same time. You
 * to seek forwards, use `first`; specify a starting node with `after`.
 * to seek backwards, use `last`; specify a starting node with `before`.
 
+You can also skip an arbitrary amount of nodes in whichever direction you are seeking by supplying the `skip` argument.
+
 > Consider a blog where only 3 posts are shown at the front page. To query the first page:
 
 ```graphql
@@ -302,6 +304,40 @@ query {
 ```graphql
 query {
   allPosts(first: 3, after: "my-post-id-3") {
+    id, title
+  }
+}
+```
+
+```graphql
+{
+  "data": {
+    "allPosts": [
+      {
+        "id": "my-post-id-4",
+        "title": "My favorite Movies",
+        "published": true
+      },
+      {
+        "id": "my-post-id-5",
+        "title": "My favorite Actors",
+        "published": true
+      },
+      {
+        "id": "my-post-id-6",
+        "title": "My biggest Secret",
+        "published": true
+      }
+    ]
+  }
+}
+```
+
+> We could reach the same result by combining `first` and `skip`:
+
+```graphql
+query {
+  allPosts(first: 3, skip: 3) {
     id, title
   }
 }
