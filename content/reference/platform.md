@@ -262,10 +262,11 @@ An operation in the context of permissions is either enabled or disabled and can
 
 A permission level describes the required minimum access level the user needs to successfully to perform a certain operation.
 
-There are two permission levels:
+There are three permission levels:
 
 * A user that is not authenticated is granted `GUEST` level access.
-* An [authenticated session user](#session-user) is granted `GUEST` and `AUTHENTICATED` level access.
+* An [authenticated session user](#session-user) is additionally granted `AUTHENTICATED` level access.
+* An authenticated session user is additionally granted `RELATED` level access, if the path specified from the field to the `User` model is pointing to the session user.
 
 <!--
 ## File Management
