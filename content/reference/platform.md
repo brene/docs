@@ -1,6 +1,6 @@
 # Platform
 
-This page helps you getting used to the terminology and concepts that you encounter when using the Graphcool platform.
+This page explains the terminology and concepts used within the Graphcool platform.
 
 You don't have to read the sections in any particular order, so feel free to jump around.
 
