@@ -613,9 +613,24 @@ Every mutation has to include the `clientMutationId` argument. If you are runnin
 
 Note: The subselection of fields cannot be empty. If you have no specific data requirements, you can always select `id` as a default.
 
-There are two categories of generated mutations:
+There are three categories of generated mutations:
+* a [sign-in](#sign-in) mutation to authenticate further queries or mutations as a certain user
 * mutations to create, update or delete nodes for a certain [model](platform#model) in your project
 * mutations to create, update or delete edges for a certain [relation](platform#relation) in your project
+
+### Sign In
+
+Signs in a user by supplying an email and password. Returns a [temporary authentication token](platform#temporary-authentication-tokens) that can be used to authenticate further queries or mutations as the signed in user.
+
+> Sign in as user `john@doe.com` with password `mysecret` and query the newly created authentication token:
+
+```graphql
+mutation {
+  signinUser({email: "john@doe.", password: "mysecret", clientMutationId: "abc") {
+    token
+  }
+}
+```
 
 ### Modifying nodes
 
