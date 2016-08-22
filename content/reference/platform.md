@@ -32,7 +32,10 @@ Note: You can copy your endpoint from within the Dashboard after you logged in.
 Every project has its own *data schema*.
 You can organize your data in [models](#model) and define [relations](#relation) between them.
 
-![](../images/structure.svg)
+> For example, if you are running a blog, you need to organize `User`s and `Post`s. A user should be able to be associated with all the posts that he writes. However, a post should only be associated with its single author.
+You can transfer this situation by using the `User` and `Post` models and define a relation between them:
+
+![](../images/models-relations.svg)
 
 ### Model
 
@@ -78,7 +81,7 @@ type Comment {
 
 *Fields* are the building blocks of a [model](#model) giving a node its shape. Every field is referenced by its name and has a type which is either a [scalar type](#scalar-types) or a [relation](#relation).
 
-> The `Post` model from above has a `title` and an `text` field.
+> The `Post` model from above has a `title` and a `text` field, amongst others.
 
 #### Scalar Types
 
@@ -179,9 +182,9 @@ You can provide a migration value when you create a new non-required field, but 
 
 A *relation* defines how two models are related to each other. Every relation has a name and connects two models via a field in each direction. A relation can either be a one-to-one, a one-to-many or a many-to-many relation.
 
-> A simple example for a relation could be the `Pet` relation where the `Human` model is related to the `Animal` model. Starting from a `Human` node you can access the related `Animal` nodes via the `pets` field and using the `owner` field for the other direction.
+> A simple example for a relation could be the `author` relation where the `User` model is related to the `Post` model. Starting from a `User` node you can access the related `Post` nodes via the `posts` field. The author is exposed on nodes of the Post model using the `author` field.
 
-![](../images/data.svg)
+![](../images/nodes-and-edges.svg)
 
 Note: A model can be related to itself.
 
