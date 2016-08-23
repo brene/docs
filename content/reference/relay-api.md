@@ -996,7 +996,7 @@ Try to investigate your input for possible errors related to the error message.
 Maybe the syntax of a request is not correct, or you forgot to include a required query argument?
 Another possibility is that the supplied data could not be resolved on our servers.
 
-Here is an overview of possible errors that you will encounter:
+Here is an overview of possible errors that you might encounter:
 
 **Code 2000: GraphQLArgumentsException**
 
