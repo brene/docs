@@ -180,7 +180,7 @@ You can provide a migration value when you create a new non-required field, but 
 
 ### Relation
 
-A *relation* defines how two models are related to each other. Every relation has a name and connects two models via a field in each direction. A relation can either be a one-to-one, a one-to-many or a many-to-many relation.
+A *relation* defines how two [models](#model) are related to each other. Every relation has a name and connects two models via a [field](#field) in each direction. A relation can either be a one-to-one, a one-to-many or a many-to-many relation.
 
 > A simple example for a relation could be the `author` relation where the `User` model is related to the `Post` model. Starting from a `User` node you can access the related `Post` nodes via the `posts` field. The author is exposed on nodes of the Post model using the `author` field.
 
@@ -190,7 +190,7 @@ Note: A model can be related to itself.
 
 #### Connection & Edges
 
-A relation can only exist between two models. Two nodes that are related to each other are connected by an *edge*. All edges belonging to the same relation together form a *connection*.
+A relation can only exist between two [models](#model). Two nodes that are related to each other are connected by an *edge*. All edges belonging to the same relation form a *connection*.
 
 Note: Two nodes can only be connected once for each relation between the according two models.
 
