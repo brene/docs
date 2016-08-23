@@ -2,6 +2,7 @@
   "routes": [
     "/",
     "/guides",
+    "/guides/thinking-in-terms-of-graphs",
     "/reference",
     "/reference/platform",
     "/reference/simple-api",
