@@ -16,9 +16,11 @@ If you are not using Relay, you probably should use the simple API for now. If y
 ## Structure
 
 The Relay API provides several possibilities to fetch, modify or traverse your data. It features
-* generated queries based on models
-* traversal of the data graph
-* generated mutations based on models and relations
+* [generated queries](#generated-queries) based on models
+* [traversal of the data graph](#traverse-the-data-graph)
+* [generated mutations](#generated-mutations) based on models and relations
+
+If something goes wrong, [errors](#errors) are thrown to enabling you to further investigate the issue.
 
 ## Generated Queries
 
