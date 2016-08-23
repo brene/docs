@@ -989,7 +989,7 @@ You do not have to investigate this issue further in your client application.
 }
 ```
 
-### User Input Error
+### User Input Errors
 
 A user input error usually indicates that you entered something incoherent in the Dashboard, or that something is not correct with the query or mutation you are trying to send in your client application.
 
