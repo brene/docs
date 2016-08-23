@@ -846,44 +846,82 @@ You do not have to investigate this issue further in your client application.
 }
 ```
 
-### Client API Errors
+### User Input Error
 
-A client API error usually indicates that something is not correct with the query or mutation you are trying to send.
+A user input error usually indicates that you entered something incoherent in the Dashboard, or that something is not correct with the query or mutation you are trying to send in your client application.
 
-Try to investigate your application for possible errors related to the error message.
+Try to investigate your input for possible errors related to the error message.
 
 Maybe the syntax of a request is not correct, or you forgot to include a required query argument?
 Another possibility is that the supplied data could not be resolved on our servers.
 
-Here is an overview about all possible client errors:
+Here is an overview of possible errors that you will encounter:
 
-**Code 1033: id not found**
+**Code 2000: GraphQLArgumentsException**
 
-**Code 1035: invalid id provided**
+**Code 2001: NotFoundException**
 
-**Code 1036: unknown argument provided**
+**Code 2002: FailedLoginException**
 
-**Code 1037: id argument expected but not foundation**
+**Code 2003: NotAuthenticatedException**
 
-**Code 1038: mutation would violate a unique key constraint**
+**Code 2004: IdIsInvalid**
 
-**Code 1045: referencing a node that does not exist**
+**Code 2005: DataItemDoesNotExist**
 
-**Code 2001: something unexpected happened in a webhook**
+**Code 2006: IdIsMissing**
 
-**Code 2003: invalid model supplied**
+**Code 2007: DataItemAlreadyExists**
 
-**Code 2004: invalid field supplied**
+**Code 2008: ExtraArguments**
 
-**Code 2005: node not found**
+**Code 2009: InvalidName**
 
-**Code 2006: supplied both first and last**
+**Code 2010: InvalidValue**
 
-**Code 2007: node not in the relation.**
+**Code 2011: ValueTooLong**
 
-**Code 2008: not allowed to access project**
+**Code 2012: FieldAreadyExists**
 
-**Code 2009: edge already exists**
+**Code 2013: MissingEnumValues**
+
+**Code 2014: InvalidValueForScalarType**
+
+**Code 2015: RequiredAndNoMigrationValue**
+
+**Code 2016: RelationAlreadyFull**
+
+**Code 2017: CantDeleteLastProject**
+
+**Code 2018: ModelWithNameAlreadyExists**
+
+**Code 2019: ProjectWithNameAlreadyExists**
+
+**Code 2020: InvalidUserPath**
+
+**Code 2021: ChangedIsListAndNoMigrationValue**
+
+**Code 2022: InvalidPassword**
+
+**Code 2023: EdgesAlreadyExist**
+
+**Code 2024: UniqueConstraintViolation**
+
+**Code 2025: NodeDoesNotExist**
+
+**Code 2026: ItemAlreadyInRelation**
+
+**Code 2027: InvalidResetPasswordToken**
+
+**Code 2028: NodeNotFoundError**
+
+**Code 2029: InvalidConnectionArguments**
+
+**Code 2030: WrongClientForProject**
+
+**Code 2031: InvalidSigninData**
+
+**Code 2032: InvalidPermanentAuthTokenId**
 
 > For example, when you try to update a post but specify a non-existing id:
 
